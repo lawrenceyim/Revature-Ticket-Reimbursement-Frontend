@@ -1,0 +1,8 @@
+.login-fieldset {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-fieldset input {
+    margin-bottom: 10px;
+}
