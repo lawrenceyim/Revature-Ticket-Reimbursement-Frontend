@@ -1,24 +1,21 @@
 import "./LoginBox.css";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export function LoginBox() {
-    const [username, setUsername] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
+    const usernameRef = useRef<string>("");
+    const passwordRef = useRef<string>("")
 
-
-
-    // What is the data type of the event param?
     async function login(event: any) {
         event?.preventDefault();
-        console.log(username);
-        console.log(password);
+        console.log(usernameRef.current);
+        console.log(passwordRef.current);
 
         const loginHeaders : Headers = new Headers();
         loginHeaders.append("Content-Type", "application/json");
         
         const jsonBody: string = JSON.stringify({
-            username: username,
-            password: password
+            username: usernameRef.current.trim(),
+            password: passwordRef.current
         });
 
         const response = await fetch("http://localhost:8080/accounts/login", {
@@ -26,9 +23,13 @@ export function LoginBox() {
             headers: loginHeaders,
             body: jsonBody
         });
-        
-        const json = await response.json();
-        console.log(json);
+
+        try {
+            const json: string = await response.json();
+            console.log(json);
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     return <form>
@@ -41,15 +42,15 @@ export function LoginBox() {
                 type="text"
                 id="username"
                 name="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}></input>
+                placeholder="username"
+                onChange={(e) => usernameRef.current = e.target.value}></input>
             <label htmlFor="password">Password</label>
             <input
                 type="text"
                 id="password"
                 name="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}></input>
+                placeholder="password"
+                onChange={(e) => passwordRef.current = e.target.value}></input>
             <button onClick={login}>Login</button>
         </fieldset>
     </form>;
