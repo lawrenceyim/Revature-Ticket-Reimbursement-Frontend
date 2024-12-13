@@ -1,23 +1,16 @@
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import './App.css'
 import { LoginForm } from './components/login_form/LoginForm';
-import { createContext, useState } from 'react';
+import { useState } from 'react';
 import { Home } from './components/home/Home';
 import { RegistrationForm } from './components/registration_form/RegistrationForm';
-
-interface LoggedInProp {
-  loggedIn: boolean,
-  setLogIn: (loggedIn: boolean) => void;
-}
-
-export const LogInContext = createContext<LoggedInProp>({
-  loggedIn: false,
-  setLogIn: () => { }
-})
+import { Account } from './interfaces/Account';
+import { LogInContext } from './contexts/Contexts';
 
 function App() {
   const [loggedIn, setLogIn] = useState<boolean>(false);
-
+  const [account, setAccount] = useState<Account>({} as Account);
+  
   return (
     <>
       <LogInContext.Provider value={{ loggedIn, setLogIn }}>

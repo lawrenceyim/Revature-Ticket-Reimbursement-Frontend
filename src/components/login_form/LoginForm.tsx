@@ -62,7 +62,7 @@ export function LoginForm() {
                     onChange={e => usernameRef.current = e.target.value}/>
                 <label htmlFor="password">Password</label>
                 <input
-                    type="text"
+                    type="password"
                     id="password"
                     name="password"
                     placeholder="password"
