@@ -1,3 +1,4 @@
+import './App.css'
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { LoginForm } from './components/login_form/LoginForm';
 import { useState } from 'react';
@@ -5,7 +6,6 @@ import { Home } from './components/home/Home';
 import { RegistrationForm } from './components/registration_form/RegistrationForm';
 import { Account } from './interfaces/Account';
 import { AccountContext, LoginContext } from './contexts/Contexts';
-import './App.css'
 import { NavBar } from './components/nav_bar/NavBar';
 
 function App() {

@@ -1,9 +1,9 @@
+import "./LoginForm.css";
 import { Account } from "../../interfaces/Account";
 import { useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { MAX_PASSWORD_LENGTH, MAX_USERNAME_LENGTH, MIN_PASSWORD_LENGTH, MIN_USERNAME_LENGTH } from "../../api_data/ApiConsts";
 import { NavBar } from "../nav_bar/NavBar";
-import "./LoginForm.css";
 import { AccountContext, LoginContext } from "../../contexts/Contexts";
 
 export function LoginForm() {

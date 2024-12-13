@@ -1,7 +1,7 @@
+import './NavBar.css';
 import { useContext } from "react";
 import { AccountContext, LoginContext } from "../../contexts/Contexts";
 import { useNavigate } from "react-router-dom";
-import './NavBar.css';
 import { Account } from "../../interfaces/Account";
 
 export function NavBar() {
