@@ -1,5 +1,4 @@
 import { Account } from "../../interfaces/Account";
-import { EmployeeRole } from "../../enums/EmployeeRole";
 import { useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { MAX_PASSWORD_LENGTH, MAX_USERNAME_LENGTH, MIN_PASSWORD_LENGTH, MIN_USERNAME_LENGTH } from "../../api_data/ApiConsts";
@@ -37,6 +36,7 @@ export function LoginForm() {
             loginContext.setLogIn(true);
             navigate("/menu");
         } catch (e) {
+            // TODO: Some sort of UI change to indicate failure
             console.log(e);
         }
     }
