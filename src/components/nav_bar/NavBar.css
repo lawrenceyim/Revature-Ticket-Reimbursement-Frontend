@@ -1,0 +1,22 @@
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: gray;
+}
+
+.flex-item {
+    margin: 10px;
+}
+
+.navbar {
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+.welcome-box {
+    text-align: left;
+}

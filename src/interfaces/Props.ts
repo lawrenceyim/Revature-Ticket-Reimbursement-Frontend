@@ -5,7 +5,7 @@ export interface AccountProp {
   setAccount: (account: Account) => void
 }
 
-export interface LoggedInProp {
+export interface LoginProp {
   loggedIn: boolean,
   setLogIn: (loggedIn: boolean) => void
 }

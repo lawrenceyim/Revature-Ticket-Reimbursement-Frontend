@@ -1,13 +1,13 @@
 import { useContext } from "react";
 import { LoginForm } from "../login_form/LoginForm";
-import { LogInContext } from "../../contexts/Contexts";
+import { LoginContext } from "../../contexts/Contexts";
 
 export function Home() {
-    const loginProp = useContext(LogInContext)
+    const loginContext = useContext(LoginContext)
 
     return (
         <>
-            {loginProp.loggedIn ? (
+            {loginContext.loggedIn ? (
                 <>Helloworld</>
             ) : (
                 <LoginForm />

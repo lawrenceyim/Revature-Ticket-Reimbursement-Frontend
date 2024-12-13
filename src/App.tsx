@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { Home } from './components/home/Home';
 import { RegistrationForm } from './components/registration_form/RegistrationForm';
 import { Account } from './interfaces/Account';
-import { AccountContext, LogInContext } from './contexts/Contexts';
+import { AccountContext, LoginContext } from './contexts/Contexts';
 
 function App() {
   const [loggedIn, setLogIn] = useState<boolean>(false);
@@ -27,11 +27,11 @@ function App() {
 
   return (
     <>
-      <LogInContext.Provider value={{ loggedIn, setLogIn }}>
+      <LoginContext.Provider value={{ loggedIn, setLogIn }}>
         <AccountContext.Provider value={{ account, setAccount }}>
           <Content />
         </AccountContext.Provider>
-      </LogInContext.Provider>
+      </LoginContext.Provider>
     </>
   )
 }

@@ -4,6 +4,7 @@ import "./LoginForm.css";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { MAX_PASSWORD_LENGTH, MAX_USERNAME_LENGTH, MIN_PASSWORD_LENGTH, MIN_USERNAME_LENGTH } from "../../api_data/ApiConsts";
+import { NavBar } from "../nav_bar/NavBar";
 
 export function LoginForm() {
     const navigate = useNavigate();
@@ -51,35 +52,38 @@ export function LoginForm() {
     }
 
     return (
-        <form onSubmit={login}>
-            <fieldset className="login-fieldset">
-                <legend>Employee Login</legend>
-                
-                <label htmlFor="username">Username</label>
-                <input
-                    type="text"
-                    id="username"
-                    name="username"
-                    placeholder="username"
-                    required
-                    minLength={MIN_USERNAME_LENGTH}
-                    maxLength={MAX_USERNAME_LENGTH}
-                    onChange={e => usernameRef.current = e.target.value}/>
-                
-                <label htmlFor="password">Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    placeholder="password"
-                    required
-                    minLength={MIN_PASSWORD_LENGTH}
-                    maxLength={MAX_PASSWORD_LENGTH}
-                    onChange={e => passwordRef.current = e.target.value}/>
-                
-                <button type="submit">Login</button>
-                <button onClick={goToRegistrationForm}>Go to Registration</button>
-            </fieldset>
-        </form>
+        <>
+            <NavBar/>
+            <form onSubmit={login}>
+                <fieldset className="login-fieldset">
+                    <legend>Employee Login</legend>
+
+                    <label htmlFor="username">Username</label>
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="username"
+                        required
+                        minLength={MIN_USERNAME_LENGTH}
+                        maxLength={MAX_USERNAME_LENGTH}
+                        onChange={e => usernameRef.current = e.target.value} />
+
+                    <label htmlFor="password">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="password"
+                        required
+                        minLength={MIN_PASSWORD_LENGTH}
+                        maxLength={MAX_PASSWORD_LENGTH}
+                        onChange={e => passwordRef.current = e.target.value} />
+
+                    <button type="submit">Login</button>
+                    <button onClick={goToRegistrationForm}>Go to Registration</button>
+                </fieldset>
+            </form>
+        </>
     );
 }
