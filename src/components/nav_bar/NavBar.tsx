@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { AccountContext, LoginContext } from "../../contexts/Contexts";
 import { useNavigate } from "react-router-dom";
 import { Account } from "../../interfaces/Account";
+import { capitalizeFirstLetterOnly } from '../../utils/Capitalization';
 
 export function NavBar() {
     const navigate = useNavigate();
@@ -21,7 +22,7 @@ export function NavBar() {
         return (<>
             {loginContext.loggedIn ? (<>
                 <p>Welcome, {account?.firstName} {account?.lastName}.</p>
-                <p>Role: {account?.employeeRole}</p>
+                <p>Role: {capitalizeFirstLetterOnly(account?.employeeRole as string)}</p>
             </>) : (<>
                 <p>
                     Welcome, guest.
