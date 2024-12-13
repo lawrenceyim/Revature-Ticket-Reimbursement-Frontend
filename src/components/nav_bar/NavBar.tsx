@@ -1,12 +1,21 @@
 import { useContext } from "react";
 import { AccountContext, LoginContext } from "../../contexts/Contexts";
+import { useNavigate } from "react-router-dom";
 import './NavBar.css';
+import { Account } from "../../interfaces/Account";
 
 export function NavBar() {
+    const navigate = useNavigate();
     const loginContext = useContext(LoginContext);
     const accountContext = useContext(AccountContext);
-
     const account = accountContext?.account;
+
+    function logout(event: any) {
+        event.preventDefault();
+        accountContext.setAccount({} as Account);
+        loginContext.setLogIn(false);
+        navigate("/");
+    }
 
     function WelcomeBox() {
         return (<>
@@ -24,7 +33,7 @@ export function NavBar() {
     function NavButtons() {
         return (<>
             {loginContext.loggedIn ? (<>
-                <button>Logout</button>
+                <button onClick={logout}>Logout</button>
             </>) : (<>
                 
             </>)}

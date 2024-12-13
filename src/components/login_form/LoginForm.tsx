@@ -1,13 +1,16 @@
 import { Account } from "../../interfaces/Account";
 import { EmployeeRole } from "../../enums/EmployeeRole";
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { MAX_PASSWORD_LENGTH, MAX_USERNAME_LENGTH, MIN_PASSWORD_LENGTH, MIN_USERNAME_LENGTH } from "../../api_data/ApiConsts";
 import { NavBar } from "../nav_bar/NavBar";
 import "./LoginForm.css";
+import { AccountContext, LoginContext } from "../../contexts/Contexts";
 
 export function LoginForm() {
     const navigate = useNavigate();
+    const accountContext = useContext(AccountContext);
+    const loginContext = useContext(LoginContext);
     const usernameRef = useRef<string>("");
     const passwordRef = useRef<string>("")
 
@@ -30,17 +33,9 @@ export function LoginForm() {
 
         try {
             const account: Account = await response.json();
-            switch (account.employeeRole) {
-                case EmployeeRole.EMPLOYEE:
-                    console.log("EMPLOYEE");
-                    break;
-                case EmployeeRole.FINANCE_MANAGER:
-                    console.log("FINANCE MANAGER");
-                    break;
-                case EmployeeRole.USER_STORY_MANAGER:
-                    console.log("USER STORY MANAGER.");
-                    break;
-            }
+            accountContext.setAccount(account);
+            loginContext.setLogIn(true);
+            navigate("/menu");
         } catch (e) {
             console.log(e);
         }

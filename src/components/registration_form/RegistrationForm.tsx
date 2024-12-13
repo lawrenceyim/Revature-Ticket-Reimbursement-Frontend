@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { EmployeeRole } from "../../enums/EmployeeRole";
 import { Account } from "../../interfaces/Account";
 import { MAX_FIRST_NAME_LENGTH, MAX_LAST_NAME_LENGTH, MAX_PASSWORD_LENGTH, MAX_USERNAME_LENGTH, MIN_PASSWORD_LENGTH, MIN_USERNAME_LENGTH } from "../../api_data/ApiConsts";
+import { NavBar } from "../nav_bar/NavBar";
 
 export function RegistrationForm() {
     const navigate = useNavigate();
@@ -13,7 +14,7 @@ export function RegistrationForm() {
 
     async function register(event: any) {
         event.preventDefault();
-        
+
         const loginHeaders: Headers = new Headers();
         loginHeaders.append("Content-Type", "application/json");
 
@@ -53,7 +54,8 @@ export function RegistrationForm() {
         navigate("/login");
     }
 
-    return (
+    return (<>
+        <NavBar />
         <form onSubmit={register}>
             <fieldset className="login-fieldset">
                 <legend>Employee Registration</legend>
@@ -68,7 +70,7 @@ export function RegistrationForm() {
                     minLength={MIN_USERNAME_LENGTH}
                     maxLength={MAX_USERNAME_LENGTH}
                     onChange={e => usernameRef.current = e.target.value} />
-                
+
                 <label htmlFor="password">Password</label>
                 <input
                     type="password"
@@ -79,7 +81,7 @@ export function RegistrationForm() {
                     minLength={MIN_PASSWORD_LENGTH}
                     maxLength={MAX_PASSWORD_LENGTH}
                     onChange={e => passwordRef.current = e.target.value} />
-                
+
                 <label htmlFor="firstName">First Name</label>
                 <input
                     type="text"
@@ -90,7 +92,7 @@ export function RegistrationForm() {
                     minLength={1}
                     maxLength={MAX_FIRST_NAME_LENGTH}
                     onChange={e => firstNameRef.current = e.target.value} />
-                
+
                 <label htmlFor="lastName">Last Name</label>
                 <input
                     type="text"
@@ -101,10 +103,10 @@ export function RegistrationForm() {
                     minLength={1}
                     maxLength={MAX_LAST_NAME_LENGTH}
                     onChange={e => lastNameRef.current = e.target.value} />
-                
+
                 <button type="submit">Register</button>
                 <button onClick={returnToLoginPage}>Return to Login</button>
             </fieldset>
         </form>
-    );
+    </>);
 }

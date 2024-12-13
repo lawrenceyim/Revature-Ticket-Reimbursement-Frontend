@@ -6,6 +6,7 @@ import { RegistrationForm } from './components/registration_form/RegistrationFor
 import { Account } from './interfaces/Account';
 import { AccountContext, LoginContext } from './contexts/Contexts';
 import './App.css'
+import { NavBar } from './components/nav_bar/NavBar';
 
 function App() {
   const [loggedIn, setLogIn] = useState<boolean>(false);
@@ -16,8 +17,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />}></Route>
-          <Route path='/register' element={<RegistrationForm />}></Route>
+          <Route path="/register" element={<RegistrationForm />}></Route>
           <Route path="/login" element={<LoginForm />}></Route>
+          <Route path="/menu" element={<NavBar/>}></Route>
         </Routes>
       </BrowserRouter>
     </>);
