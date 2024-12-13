@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { EmployeeRole } from "../../enums/EmployeeRole";
 import { Account } from "../../interfaces/Account";
+import { MAX_FIRST_NAME_LENGTH, MAX_LAST_NAME_LENGTH, MAX_PASSWORD_LENGTH, MAX_USERNAME_LENGTH, MIN_PASSWORD_LENGTH, MIN_USERNAME_LENGTH } from "../../api_data/ApiConsts";
 
 export function RegistrationForm() {
     const navigate = useNavigate();
@@ -53,9 +54,9 @@ export function RegistrationForm() {
     }
 
     return (
-        <form>
+        <form onSubmit={register}>
             <fieldset className="login-fieldset">
-                <legend>Employee Login</legend>
+                <legend>Employee Registration</legend>
 
                 <label htmlFor="username">Username</label>
                 <input
@@ -63,6 +64,9 @@ export function RegistrationForm() {
                     id="username"
                     name="username"
                     placeholder="username"
+                    required
+                    minLength={MIN_USERNAME_LENGTH}
+                    maxLength={MAX_USERNAME_LENGTH}
                     onChange={e => usernameRef.current = e.target.value} />
                 
                 <label htmlFor="password">Password</label>
@@ -71,6 +75,9 @@ export function RegistrationForm() {
                     id="password"
                     name="password"
                     placeholder="password"
+                    required
+                    minLength={MIN_PASSWORD_LENGTH}
+                    maxLength={MAX_PASSWORD_LENGTH}
                     onChange={e => passwordRef.current = e.target.value} />
                 
                 <label htmlFor="firstName">First Name</label>
@@ -79,6 +86,9 @@ export function RegistrationForm() {
                     id="firstName"
                     name="firstName"
                     placeholder="first name"
+                    required
+                    minLength={1}
+                    maxLength={MAX_FIRST_NAME_LENGTH}
                     onChange={e => firstNameRef.current = e.target.value} />
                 
                 <label htmlFor="lastName">Last Name</label>
@@ -87,10 +97,13 @@ export function RegistrationForm() {
                     id="lastName"
                     name="lastName"
                     placeholder="last name"
+                    required
+                    minLength={1}
+                    maxLength={MAX_LAST_NAME_LENGTH}
                     onChange={e => lastNameRef.current = e.target.value} />
                 
-                <button onClick={register}>Register</button>
-                <button onClick={returnToLoginPage}>Return to Login Page</button>
+                <button type="submit">Register</button>
+                <button onClick={returnToLoginPage}>Return to Login</button>
             </fieldset>
         </form>
     );

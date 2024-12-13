@@ -3,6 +3,7 @@ import { EmployeeRole } from "../../enums/EmployeeRole";
 import "./LoginForm.css";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { MAX_PASSWORD_LENGTH, MAX_USERNAME_LENGTH, MIN_PASSWORD_LENGTH, MIN_USERNAME_LENGTH } from "../../api_data/ApiConsts";
 
 export function LoginForm() {
     const navigate = useNavigate();
@@ -50,7 +51,7 @@ export function LoginForm() {
     }
 
     return (
-        <form>
+        <form onSubmit={login}>
             <fieldset className="login-fieldset">
                 <legend>Employee Login</legend>
                 
@@ -60,6 +61,9 @@ export function LoginForm() {
                     id="username"
                     name="username"
                     placeholder="username"
+                    required
+                    minLength={MIN_USERNAME_LENGTH}
+                    maxLength={MAX_USERNAME_LENGTH}
                     onChange={e => usernameRef.current = e.target.value}/>
                 
                 <label htmlFor="password">Password</label>
@@ -68,10 +72,13 @@ export function LoginForm() {
                     id="password"
                     name="password"
                     placeholder="password"
+                    required
+                    minLength={MIN_PASSWORD_LENGTH}
+                    maxLength={MAX_PASSWORD_LENGTH}
                     onChange={e => passwordRef.current = e.target.value}/>
                 
-                <button onClick={login}>Login</button>
-                <button onClick={goToRegistrationForm}>Register</button>
+                <button type="submit">Login</button>
+                <button onClick={goToRegistrationForm}>Go to Registration</button>
             </fieldset>
         </form>
     );
