@@ -43,28 +43,30 @@ export function LoginForm() {
     }
 
     function goToRegistrationForm(event: any) {
+        event.preventDefault();
 
     }
 
-    return <form>
-        <fieldset className="login-fieldset">
-            <legend>Employee Login</legend>
-            <label htmlFor="username">Username</label>
-            <input
-                type="text"
-                id="username"
-                name="username"
-                placeholder="username"
-                onChange={(e) => usernameRef.current = e.target.value}></input>
-            <label htmlFor="password">Password</label>
-            <input
-                type="text"
-                id="password"
-                name="password"
-                placeholder="password"
-                onChange={(e) => passwordRef.current = e.target.value}></input>
-            <button onClick={login}>Login</button>
-            <button onClick={goToRegistrationForm}>Register</button>
-        </fieldset>
-    </form>;
+    return (
+        <form>
+            <fieldset className="login-fieldset">
+                <legend>Employee Login</legend>
+                <label htmlFor="username">Username</label>
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="username"
+                    onChange={(e) => usernameRef.current = e.target.value}></input>
+                <label htmlFor="password">Password</label>
+                <input
+                    type="text"
+                    id="password"
+                    name="password"
+                    placeholder="password"
+                    onChange={(e) => passwordRef.current = e.target.value}></input>
+                <button onClick={login}>Login</button>
+                <button onClick={goToRegistrationForm}>Register</button>
+            </fieldset>
+        </form>);
 }
