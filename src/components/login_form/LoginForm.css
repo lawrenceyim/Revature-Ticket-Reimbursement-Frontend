@@ -6,3 +6,7 @@
 .login-fieldset input {
     margin-bottom: 10px;
 }
+
+.login-fieldset button {
+    margin: 5px 0px;
+}

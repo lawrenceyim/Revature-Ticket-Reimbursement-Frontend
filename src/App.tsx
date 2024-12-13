@@ -1,10 +1,10 @@
 import './App.css'
-import { LoginBox } from './components/login_box/LoginBox';
+import { LoginForm } from './components/login_form/LoginForm';
 
 function App() {
   return (
     <>
-    <LoginBox/>
+      <LoginForm />
     </>
   )
 }
