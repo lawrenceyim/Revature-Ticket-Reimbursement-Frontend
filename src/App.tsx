@@ -12,28 +12,24 @@ function App() {
   const [account, setAccount] = useState<Account>({} as Account);
 
   function Content() {
-    return (
-      <>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />}></Route>
-            <Route path='/register' element={<RegistrationForm />}></Route>
-            <Route path="/login" element={<LoginForm />}></Route>
-          </Routes>
-        </BrowserRouter>
-      </>
-    );
+    return (<>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path='/register' element={<RegistrationForm />}></Route>
+          <Route path="/login" element={<LoginForm />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </>);
   }
 
-  return (
-    <>
-      <LoginContext.Provider value={{ loggedIn, setLogIn }}>
-        <AccountContext.Provider value={{ account, setAccount }}>
-          <Content />
-        </AccountContext.Provider>
-      </LoginContext.Provider>
-    </>
-  )
+  return (<>
+    <LoginContext.Provider value={{ loggedIn, setLogIn }}>
+      <AccountContext.Provider value={{ account, setAccount }}>
+        <Content />
+      </AccountContext.Provider>
+    </LoginContext.Provider>
+  </>)
 }
 
 export default App

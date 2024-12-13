@@ -5,13 +5,11 @@ import { LoginContext } from "../../contexts/Contexts";
 export function Home() {
     const loginContext = useContext(LoginContext)
 
-    return (
-        <>
-            {loginContext.loggedIn ? (
-                <>Helloworld</>
-            ) : (
-                <LoginForm />
-            )}
-        </>
-    );
+    return (<>
+        {loginContext.loggedIn ? (
+            <>Helloworld</>
+        ) : (
+            <LoginForm />
+        )}
+    </>);
 }
