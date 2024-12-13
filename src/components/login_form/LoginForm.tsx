@@ -53,6 +53,7 @@ export function LoginForm() {
         <form>
             <fieldset className="login-fieldset">
                 <legend>Employee Login</legend>
+                
                 <label htmlFor="username">Username</label>
                 <input
                     type="text"
@@ -60,6 +61,7 @@ export function LoginForm() {
                     name="username"
                     placeholder="username"
                     onChange={e => usernameRef.current = e.target.value}/>
+                
                 <label htmlFor="password">Password</label>
                 <input
                     type="password"
@@ -67,6 +69,7 @@ export function LoginForm() {
                     name="password"
                     placeholder="password"
                     onChange={e => passwordRef.current = e.target.value}/>
+                
                 <button onClick={login}>Login</button>
                 <button onClick={goToRegistrationForm}>Register</button>
             </fieldset>

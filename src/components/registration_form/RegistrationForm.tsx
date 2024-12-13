@@ -12,7 +12,7 @@ export function RegistrationForm() {
 
     async function register(event: any) {
         event.preventDefault();
-
+        
         const loginHeaders: Headers = new Headers();
         loginHeaders.append("Content-Type", "application/json");
 
@@ -56,6 +56,7 @@ export function RegistrationForm() {
         <form>
             <fieldset className="login-fieldset">
                 <legend>Employee Login</legend>
+
                 <label htmlFor="username">Username</label>
                 <input
                     type="text"
@@ -63,6 +64,7 @@ export function RegistrationForm() {
                     name="username"
                     placeholder="username"
                     onChange={e => usernameRef.current = e.target.value} />
+                
                 <label htmlFor="password">Password</label>
                 <input
                     type="password"
@@ -70,6 +72,7 @@ export function RegistrationForm() {
                     name="password"
                     placeholder="password"
                     onChange={e => passwordRef.current = e.target.value} />
+                
                 <label htmlFor="firstName">First Name</label>
                 <input
                     type="text"
@@ -77,6 +80,7 @@ export function RegistrationForm() {
                     name="firstName"
                     placeholder="first name"
                     onChange={e => firstNameRef.current = e.target.value} />
+                
                 <label htmlFor="lastName">Last Name</label>
                 <input
                     type="text"
@@ -84,6 +88,7 @@ export function RegistrationForm() {
                     name="lastName"
                     placeholder="last name"
                     onChange={e => lastNameRef.current = e.target.value} />
+                
                 <button onClick={register}>Register</button>
                 <button onClick={returnToLoginPage}>Return to Login Page</button>
             </fieldset>
