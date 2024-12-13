@@ -1,11 +1,11 @@
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import './App.css'
 import { LoginForm } from './components/login_form/LoginForm';
 import { useState } from 'react';
 import { Home } from './components/home/Home';
 import { RegistrationForm } from './components/registration_form/RegistrationForm';
 import { Account } from './interfaces/Account';
 import { AccountContext, LoginContext } from './contexts/Contexts';
+import './App.css'
 
 function App() {
   const [loggedIn, setLogIn] = useState<boolean>(false);
