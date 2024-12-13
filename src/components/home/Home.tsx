@@ -1,9 +1,9 @@
-import { createContext, useContext } from "react";
+import { useContext } from "react";
 import { LoginForm } from "../login_form/LoginForm";
-import { LoggedInContext } from "../../App";
+import { LogInContext } from "../../App";
 
 export function Home() {
-    const loginProp = useContext(LoggedInContext)
+    const loginProp = useContext(LogInContext)
 
     return (
         <>

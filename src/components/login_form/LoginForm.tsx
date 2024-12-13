@@ -2,8 +2,10 @@ import { Account } from "../../interfaces/Account";
 import { EmployeeRole } from "../../enums/EmployeeRole";
 import "./LoginForm.css";
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function LoginForm() {
+    const navigate = useNavigate();
     const usernameRef = useRef<string>("");
     const passwordRef = useRef<string>("")
 
@@ -44,7 +46,7 @@ export function LoginForm() {
 
     function goToRegistrationForm(event: any) {
         event.preventDefault();
-
+        navigate("/register");
     }
 
     return (
@@ -57,16 +59,17 @@ export function LoginForm() {
                     id="username"
                     name="username"
                     placeholder="username"
-                    onChange={(e) => usernameRef.current = e.target.value}></input>
+                    onChange={e => usernameRef.current = e.target.value}/>
                 <label htmlFor="password">Password</label>
                 <input
                     type="text"
                     id="password"
                     name="password"
                     placeholder="password"
-                    onChange={(e) => passwordRef.current = e.target.value}></input>
+                    onChange={e => passwordRef.current = e.target.value}/>
                 <button onClick={login}>Login</button>
                 <button onClick={goToRegistrationForm}>Register</button>
             </fieldset>
-        </form>);
+        </form>
+    );
 }
