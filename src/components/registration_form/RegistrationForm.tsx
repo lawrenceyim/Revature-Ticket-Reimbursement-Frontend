@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { Account } from "../../interfaces/Account";
 import { MAX_FIRST_NAME_LENGTH, MAX_LAST_NAME_LENGTH, MAX_PASSWORD_LENGTH, MAX_USERNAME_LENGTH, MIN_PASSWORD_LENGTH, MIN_USERNAME_LENGTH } from "../../api_data/ApiConsts";
 import { NavBar } from "../nav_bar/NavBar";
-import { LOGGED_IN, USER_ACCOUNT } from "../../consts/SessionStorageKeys";
+import { LOGGED_IN } from "../../consts/SessionStorageKeys";
 import { LOGIN_URL, MENU_URL } from "../../consts/PageUrls";
+import { sendRegistrationRequest } from "./RegistrationService";
 
 export function RegistrationForm() {
     const navigate = useNavigate();
@@ -19,34 +19,20 @@ export function RegistrationForm() {
         }
     });
 
+    if (sessionStorage.getItem(LOGGED_IN)) {
+        return null;
+    }
+
     async function register(event: any) {
         event.preventDefault();
-
-        const loginHeaders: Headers = new Headers();
-        loginHeaders.append("Content-Type", "application/json");
-
         const jsonBody: string = JSON.stringify({
             username: usernameRef.current.trim(),
             password: passwordRef.current,
             firstName: firstNameRef.current,
             lastName: lastNameRef.current
         });
-
-        const response = await fetch("http://localhost:8080/accounts/register", {
-            method: "POST",
-            headers: loginHeaders,
-            body: jsonBody
-        });
-
-        try {
-            const account: Account = await response.json();
-            sessionStorage.setItem(USER_ACCOUNT, JSON.stringify(account))
-            sessionStorage.setItem(LOGGED_IN, JSON.stringify(true));
-            navigate("/menu")
-        } catch (e) {
-            // TODO: Some sort of UI change to indicate failure
-            console.log(e);
-        }
+        const registrationSuccessful: boolean = await sendRegistrationRequest(jsonBody);
+        registrationSuccessful ? navigate(MENU_URL) : null;
     }
 
     function returnToLoginPage(event: any) {

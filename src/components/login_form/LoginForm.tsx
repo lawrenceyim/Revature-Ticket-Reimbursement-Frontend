@@ -18,6 +18,10 @@ export function LoginForm() {
         }
     });
 
+    if (sessionStorage.getItem(LOGGED_IN)) {
+        return null;
+    }
+
     async function login(event: any) {
         event.preventDefault();
 
