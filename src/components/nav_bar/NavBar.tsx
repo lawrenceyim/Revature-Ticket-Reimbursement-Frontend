@@ -1,42 +1,42 @@
 import './NavBar.css';
-import { useContext } from "react";
-import { AccountContext, LoginContext } from "../../contexts/Contexts";
 import { useNavigate } from "react-router-dom";
 import { Account } from "../../interfaces/Account";
 import { capitalizeFirstLetterOnly } from '../../utils/Capitalization';
+import { LOGGED_IN, USER_ACCOUNT } from '../../consts/SessionStorageKeys';
+import { LOGIN_URL } from '../../consts/PageUrls';
 
 export function NavBar() {
     const navigate = useNavigate();
-    const loginContext = useContext(LoginContext);
-    const accountContext = useContext(AccountContext);
-    const account = accountContext?.account;
 
     function logout(event: any) {
         event.preventDefault();
-        accountContext.setAccount({} as Account);
-        loginContext.setLogIn(false);
-        navigate("/");
+        sessionStorage.removeItem(USER_ACCOUNT);
+        sessionStorage.removeItem(LOGGED_IN);
+        navigate(LOGIN_URL);
     }
 
     function WelcomeBox() {
+        const accountJson: string | null = sessionStorage.getItem(USER_ACCOUNT);
+        if (!sessionStorage.getItem(LOGGED_IN) || accountJson == null) {
+            return (<>
+                <p>Welcome, guest.</p>
+            </>);
+        }
+
+        const account: Account = JSON.parse(accountJson);
+        console.log(account);
         return (<>
-            {loginContext.loggedIn ? (<>
-                <p>Welcome, {account?.firstName} {account?.lastName}.</p>
-                <p>Role: {capitalizeFirstLetterOnly(account?.employeeRole as string)}</p>
-            </>) : (<>
-                <p>
-                    Welcome, guest.
-                </p>
-            </>)}
+            <p>Welcome, {account.firstName} {account.lastName}.</p>
+            <p>Role: {capitalizeFirstLetterOnly(account?.employeeRole as string)}</p>
         </>);
     }
 
     function NavButtons() {
         return (<>
-            {loginContext.loggedIn ? (<>
+            {sessionStorage.getItem(LOGGED_IN) ? (<>
                 <button onClick={logout}>Logout</button>
             </>) : (<>
-                
+
             </>)}
         </>);
     }

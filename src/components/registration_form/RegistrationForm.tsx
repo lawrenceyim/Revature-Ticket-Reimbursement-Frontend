@@ -1,18 +1,23 @@
-import { useContext, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Account } from "../../interfaces/Account";
 import { MAX_FIRST_NAME_LENGTH, MAX_LAST_NAME_LENGTH, MAX_PASSWORD_LENGTH, MAX_USERNAME_LENGTH, MIN_PASSWORD_LENGTH, MIN_USERNAME_LENGTH } from "../../api_data/ApiConsts";
 import { NavBar } from "../nav_bar/NavBar";
-import { AccountContext, LoginContext } from "../../contexts/Contexts";
+import { LOGGED_IN, USER_ACCOUNT } from "../../consts/SessionStorageKeys";
+import { LOGIN_URL, MENU_URL } from "../../consts/PageUrls";
 
 export function RegistrationForm() {
     const navigate = useNavigate();
-    const accountContext = useContext(AccountContext);
-    const loginContext = useContext(LoginContext);
     const usernameRef = useRef<string>("");
     const passwordRef = useRef<string>("");
     const firstNameRef = useRef<string>("");
     const lastNameRef = useRef<string>("");
+
+    useEffect(() => {
+        if (sessionStorage.getItem(LOGGED_IN)) {
+            navigate(MENU_URL);
+        }
+    });
 
     async function register(event: any) {
         event.preventDefault();
@@ -35,8 +40,8 @@ export function RegistrationForm() {
 
         try {
             const account: Account = await response.json();
-            accountContext.setAccount(account);
-            loginContext.setLogIn(true);
+            sessionStorage.setItem(USER_ACCOUNT, JSON.stringify(account))
+            sessionStorage.setItem(LOGGED_IN, JSON.stringify(true));
             navigate("/menu")
         } catch (e) {
             // TODO: Some sort of UI change to indicate failure
@@ -46,7 +51,7 @@ export function RegistrationForm() {
 
     function returnToLoginPage(event: any) {
         event.preventDefault();
-        navigate("/login");
+        navigate(LOGIN_URL);
     }
 
     return (<>

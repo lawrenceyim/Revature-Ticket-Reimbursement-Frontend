@@ -1,37 +1,22 @@
 import './App.css'
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { LoginForm } from './components/login_form/LoginForm';
-import { useState } from 'react';
 import { Home } from './components/home/Home';
 import { RegistrationForm } from './components/registration_form/RegistrationForm';
-import { Account } from './interfaces/Account';
-import { AccountContext, LoginContext } from './contexts/Contexts';
 import { NavBar } from './components/nav_bar/NavBar';
+import { LOGIN_URL, MENU_URL, REGISTRATION_URL, ROOT_URL } from './consts/PageUrls';
 
 function App() {
-  const [loggedIn, setLogIn] = useState<boolean>(false);
-  const [account, setAccount] = useState<Account>({} as Account);
-
-  function Content() {
-    return (<>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/register" element={<RegistrationForm />}></Route>
-          <Route path="/login" element={<LoginForm />}></Route>
-          <Route path="/menu" element={<NavBar/>}></Route>
-        </Routes>
-      </BrowserRouter>
-    </>);
-  }
-
   return (<>
-    <LoginContext.Provider value={{ loggedIn, setLogIn }}>
-      <AccountContext.Provider value={{ account, setAccount }}>
-        <Content />
-      </AccountContext.Provider>
-    </LoginContext.Provider>
-  </>)
+    <BrowserRouter>
+      <Routes>
+        <Route path={ROOT_URL} element={<Home />}></Route>
+        <Route path={REGISTRATION_URL} element={<RegistrationForm />}></Route>
+        <Route path={LOGIN_URL} element={<LoginForm />}></Route>
+        <Route path={MENU_URL} element={<NavBar />}></Route>
+      </Routes>
+    </BrowserRouter>
+  </>);
 }
 
 export default App

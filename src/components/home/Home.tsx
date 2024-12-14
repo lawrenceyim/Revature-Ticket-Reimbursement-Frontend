@@ -1,12 +1,9 @@
-import { useContext } from "react";
 import { LoginForm } from "../login_form/LoginForm";
-import { LoginContext } from "../../contexts/Contexts";
+import { LOGGED_IN } from "../../consts/SessionStorageKeys";
 
 export function Home() {
-    const loginContext = useContext(LoginContext)
-
     return (<>
-        {loginContext.loggedIn ? (
+        {sessionStorage.getItem(LOGGED_IN) ? (
             <>Helloworld</>
         ) : (
             <LoginForm />
