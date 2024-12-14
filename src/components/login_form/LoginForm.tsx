@@ -1,11 +1,11 @@
 import "./LoginForm.css";
-import { Account } from "../../interfaces/Account";
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { MAX_PASSWORD_LENGTH, MAX_USERNAME_LENGTH, MIN_PASSWORD_LENGTH, MIN_USERNAME_LENGTH } from "../../api_data/ApiConsts";
 import { NavBar } from "../nav_bar/NavBar";
-import { LOGGED_IN, USER_ACCOUNT } from "../../consts/SessionStorageKeys";
+import { LOGGED_IN } from "../../consts/SessionStorageKeys";
 import { MENU_URL, REGISTRATION_URL } from "../../consts/PageUrls";
+import { sendLoginRequest } from "./LoginService";
 
 export function LoginForm() {
     const navigate = useNavigate();
@@ -24,30 +24,12 @@ export function LoginForm() {
 
     async function login(event: any) {
         event.preventDefault();
-
-        const loginHeaders: Headers = new Headers();
-        loginHeaders.append("Content-Type", "application/json");
-
         const jsonBody: string = JSON.stringify({
             username: usernameRef.current.trim(),
             password: passwordRef.current
         });
-
-        const response = await fetch("http://localhost:8080/accounts/login", {
-            method: "POST",
-            headers: loginHeaders,
-            body: jsonBody
-        });
-
-        try {
-            const account: Account = await response.json();
-            sessionStorage.setItem(USER_ACCOUNT, JSON.stringify(account));
-            sessionStorage.setItem(LOGGED_IN, JSON.stringify(true));
-            navigate(MENU_URL);
-        } catch (e) {
-            // TODO: Some sort of UI change to indicate failure
-            console.log(e);
-        }
+        const loginSuccessful: boolean = await sendLoginRequest(jsonBody);
+        loginSuccessful ? navigate(MENU_URL) : null;
     }
 
     function goToRegistrationForm(event: any) {
