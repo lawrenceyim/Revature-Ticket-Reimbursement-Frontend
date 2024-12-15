@@ -4,6 +4,8 @@ import { Account } from "../../interfaces/Account";
 import { capitalizeFirstLetterOnly } from '../../utils/Capitalization';
 import { LOGGED_IN, USER_ACCOUNT } from '../../consts/SessionStorageKeys';
 import { LOGIN_URL } from '../../consts/PageUrls';
+import { isLoggedIn } from '../../utils/LoginValidation';
+import { getAccount } from '../../utils/LocalStorageUtils';
 
 export function NavBar() {
     const navigate = useNavigate();
@@ -16,14 +18,14 @@ export function NavBar() {
     }
 
     function WelcomeBox() {
-        const accountJson: string | null = sessionStorage.getItem(USER_ACCOUNT);
-        if (!sessionStorage.getItem(LOGGED_IN) || accountJson == null) {
+        const account: Account = getAccount();
+
+        if (!isLoggedIn()) {
             return (<>
                 <p>Welcome, guest.</p>
             </>);
         }
 
-        const account: Account = JSON.parse(accountJson);
         return (<>
             <p>Welcome, {account.firstName} {account.lastName}.</p>
             <p>Role: {capitalizeFirstLetterOnly(account?.employeeRole as string)}</p>

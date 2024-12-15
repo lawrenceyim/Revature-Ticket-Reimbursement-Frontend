@@ -2,12 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MAX_FIRST_NAME_LENGTH, MAX_LAST_NAME_LENGTH, MAX_PASSWORD_LENGTH, MAX_USERNAME_LENGTH, MIN_PASSWORD_LENGTH, MIN_USERNAME_LENGTH } from "../../api_data/ApiConsts";
 import { NavBar } from "../nav_bar/NavBar";
-import { LOGGED_IN } from "../../consts/SessionStorageKeys";
 import { LOGIN_URL, MENU_URL } from "../../consts/PageUrls";
 import { sendRegistrationRequest } from "./RegistrationService";
 import { isUsernameValid, isPasswordValid, isFirstNameValid, isLastNameValid } from "../../utils/Validation";
 import { ErrorMessage } from "../error_message/ErrorMessage";
 import { BadRequestError } from "../../errors/HttpErrors";
+import { isLoggedIn } from "../../utils/LoginValidation";
 
 export function RegistrationForm() {
     const navigate = useNavigate();
@@ -21,12 +21,12 @@ export function RegistrationForm() {
     const lastNameRef = useRef<string>("");
 
     useEffect(() => {
-        if (sessionStorage.getItem(LOGGED_IN)) {
+        if (isLoggedIn()) {
             navigate(MENU_URL);
         }
     });
 
-    if (sessionStorage.getItem(LOGGED_IN)) {
+    if (isLoggedIn()) {
         return null;
     }
 
