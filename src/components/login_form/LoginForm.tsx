@@ -6,6 +6,7 @@ import { NavBar } from "../nav_bar/NavBar";
 import { LOGGED_IN } from "../../consts/SessionStorageKeys";
 import { MENU_URL, REGISTRATION_URL } from "../../consts/PageUrls";
 import { sendLoginRequest } from "./LoginService";
+import { isPasswordValid, isUsernameValid } from "../../utils/Validation";
 
 export function LoginForm() {
     const navigate = useNavigate();
@@ -24,10 +25,8 @@ export function LoginForm() {
     }
 
     function validateForm(): void {
-        if (usernameRef.current.length < MIN_USERNAME_LENGTH ||
-            usernameRef.current.length > MAX_USERNAME_LENGTH ||
-            passwordRef.current.length < MIN_PASSWORD_LENGTH ||
-            passwordRef.current.length > MAX_PASSWORD_LENGTH
+        if (!isUsernameValid(usernameRef.current) ||
+            !isPasswordValid(passwordRef.current)
         ) {
             setCanSubmit(false);
         } else {
