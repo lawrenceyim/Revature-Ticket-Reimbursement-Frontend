@@ -2,6 +2,7 @@ import { StatusCodes } from "http-status-codes";
 import { USER_ACCOUNT, LOGGED_IN } from "../../consts/SessionStorageKeys";
 import { BadRequestError } from "../../errors/HttpErrors";
 import { Account } from "../../interfaces/Account";
+import { isLoggedIn } from "../../utils/LoginValidation";
 
 export async function sendLoginRequest(jsonBody: string): Promise<void> {
     const loginHeaders: Headers = new Headers();

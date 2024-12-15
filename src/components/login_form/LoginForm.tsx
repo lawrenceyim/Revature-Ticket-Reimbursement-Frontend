@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MAX_PASSWORD_LENGTH, MAX_USERNAME_LENGTH, MIN_PASSWORD_LENGTH, MIN_USERNAME_LENGTH } from "../../api_data/ApiConsts";
 import { NavBar } from "../nav_bar/NavBar";
-import { LOGGED_IN } from "../../consts/SessionStorageKeys";
 import { MENU_URL, REGISTRATION_URL } from "../../consts/PageUrls";
 import { sendLoginRequest } from "./LoginService";
 import { isPasswordValid, isUsernameValid } from "../../utils/Validation";

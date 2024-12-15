@@ -2,15 +2,15 @@ import { USER_ACCOUNT } from "../consts/SessionStorageKeys";
 import { EmployeeRole } from "../enums/EmployeeRole";
 import { Account } from "../interfaces/Account";
 
-export function getAccount(): Account {
-    const accountJson: string | null = localStorage.getItem(USER_ACCOUNT);
+export function getAccount(): Account | null {
+    const accountJson: string | null = sessionStorage.getItem(USER_ACCOUNT);
     if (accountJson == null) {
-        throw new Error("No user account data in local storage.");
+        return null;
     }
     const account: Account = JSON.parse(accountJson) as Account;
     return account;
 }
 
 export function getEmployeeRole(): EmployeeRole {
-    return getAccount().employeeRole as EmployeeRole;
+    return getAccount()?.employeeRole as EmployeeRole;
 }

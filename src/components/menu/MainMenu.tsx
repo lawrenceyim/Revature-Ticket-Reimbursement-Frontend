@@ -7,7 +7,7 @@ import { EmployeeMenu } from "./employee_menu/EmployeeMenu";
 import { FinanceManagerMenu } from "./finance_manager_menu/FinanceManagerMenu";
 import { UserStoryManagerMenu } from "./user_story_manager_menu/UserStoryManagerMenu";
 import { isLoggedIn } from "../../utils/LoginValidation";
-import { getEmployeeRole } from "../../utils/LocalStorageUtils";
+import { getEmployeeRole } from "../../utils/SessionStorageUtils";
 
 export function MainMenu() {
     const navigate = useNavigate();

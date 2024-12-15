@@ -5,7 +5,7 @@ import { capitalizeFirstLetterOnly } from '../../utils/Capitalization';
 import { LOGGED_IN, USER_ACCOUNT } from '../../consts/SessionStorageKeys';
 import { LOGIN_URL } from '../../consts/PageUrls';
 import { isLoggedIn } from '../../utils/LoginValidation';
-import { getAccount } from '../../utils/LocalStorageUtils';
+import { getAccount } from '../../utils/SessionStorageUtils';
 
 export function NavBar() {
     const navigate = useNavigate();
