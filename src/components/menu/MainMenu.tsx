@@ -4,6 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { LOGIN_URL } from "../../consts/PageUrls";
 import { EmployeeRole } from "../../enums/EmployeeRole";
 import { useEffect } from "react";
+import { NavBar } from "../nav_bar/NavBar";
+import { EmployeeMenu } from "./employee_menu/EmployeeMenu";
+import { FinanceManagerMenu } from "./finance_manager_menu/FinanceManagerMenu";
+import { UserStoryManagerMenu } from "./user_story_manager_menu/UserStoryManagerMenu";
 
 export function MainMenu() {
     const navigate = useNavigate();
@@ -24,10 +28,19 @@ export function MainMenu() {
 
     switch (employeeRole) {
         case EmployeeRole.EMPLOYEE:
-            return <></>;
+            return <>
+                <NavBar />
+                <EmployeeMenu />
+            </>;
         case EmployeeRole.FINANCE_MANAGER:
-            return <></>;
+            return <>
+                <NavBar />
+                <FinanceManagerMenu />
+            </>;
         case EmployeeRole.USER_STORY_MANAGER:
-            return <></>;
+            return <>
+                <NavBar />
+                <UserStoryManagerMenu />
+            </>;
     }
 }
