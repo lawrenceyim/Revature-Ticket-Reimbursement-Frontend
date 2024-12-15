@@ -1,3 +1,4 @@
+import { StatusCodes } from "http-status-codes";
 import { USER_ACCOUNT, LOGGED_IN } from "../../consts/SessionStorageKeys";
 import { BadRequestError } from "../../errors/HttpErrors";
 import { Account } from "../../interfaces/Account";
@@ -12,8 +13,12 @@ export async function sendLoginRequest(jsonBody: string): Promise<void> {
         body: jsonBody
     });
 
-    if (response.status == 400) {
+    if (response.status == StatusCodes.BAD_REQUEST) {
         throw new BadRequestError("Invalid login credentials.");
+    }
+
+    if (response.status != StatusCodes.OK) {
+        throw new Error("Server unavailable");
     }
 
     const account: Account = await response.json();

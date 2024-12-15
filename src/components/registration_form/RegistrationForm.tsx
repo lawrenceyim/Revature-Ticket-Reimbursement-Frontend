@@ -6,11 +6,15 @@ import { LOGGED_IN } from "../../consts/SessionStorageKeys";
 import { LOGIN_URL, MENU_URL } from "../../consts/PageUrls";
 import { sendRegistrationRequest } from "./RegistrationService";
 import { isUsernameValid, isPasswordValid, isFirstNameValid, isLastNameValid } from "../../utils/Validation";
+import { ErrorMessage } from "../error_message/ErrorMessage";
+import { BadRequestError } from "../../errors/HttpErrors";
 
 export function RegistrationForm() {
     const navigate = useNavigate();
     const [formIsValid, setFormValidity] = useState<boolean>(false);
     const [waitingForResponse, setWaitingForResponse] = useState<boolean>(false);
+    const [errorMessageEnabled, setErrorMessageEnabled] = useState<boolean>(false);
+    const errorMessageRef = useRef<string>("");
     const usernameRef = useRef<string>("");
     const passwordRef = useRef<string>("");
     const firstNameRef = useRef<string>("");
@@ -41,6 +45,7 @@ export function RegistrationForm() {
     async function register(event: any) {
         event.preventDefault();
         setWaitingForResponse(true);
+        setErrorMessageEnabled(false);
 
         const jsonBody: string = JSON.stringify({
             username: usernameRef.current.trim(),
@@ -48,8 +53,20 @@ export function RegistrationForm() {
             firstName: firstNameRef.current,
             lastName: lastNameRef.current
         });
-        const registrationSuccessful: boolean = await sendRegistrationRequest(jsonBody);
-        registrationSuccessful ? navigate(MENU_URL) : setWaitingForResponse(false);
+        
+        try {
+            await sendRegistrationRequest(jsonBody);
+            navigate(MENU_URL)
+        } catch (error: any) {
+            if (error instanceof BadRequestError) {
+                errorMessageRef.current = "Username already taken.";
+            } else {
+                errorMessageRef.current = "Server unavailable.";
+            }
+
+            setWaitingForResponse(false);
+            setErrorMessageEnabled(true);
+        }
     }
 
     function returnToLoginPage(event: any) {
@@ -119,6 +136,7 @@ export function RegistrationForm() {
                         validateForm();
                     }} />
 
+                {<ErrorMessage enabled={errorMessageEnabled} message={errorMessageRef.current} />}
                 <button type="submit" disabled={!formIsValid || waitingForResponse}>Register</button>
                 <button onClick={returnToLoginPage}>Return to Login</button>
             </fieldset>

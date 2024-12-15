@@ -14,7 +14,7 @@ export function LoginForm() {
     const navigate = useNavigate();
     const [formIsValid, setFormValidity] = useState<boolean>(false);
     const [waitingForResponse, setWaitingForResponse] = useState<boolean>(false);
-    const [displayError, setDisplayError] = useState<boolean>(false);
+    const [errorMessageEnabled, setErrorMessageEnabled] = useState<boolean>(false);
     const errorMessageRef = useRef<string>("");
     const usernameRef = useRef<string>("");
     const passwordRef = useRef<string>("");
@@ -42,12 +42,13 @@ export function LoginForm() {
     async function login(event: any): Promise<void> {
         event.preventDefault();
         setWaitingForResponse(true);
-        setDisplayError(false);
+        setErrorMessageEnabled(false);
 
         const jsonBody: string = JSON.stringify({
             username: usernameRef.current.trim(),
             password: passwordRef.current
         });
+
         try {
             await sendLoginRequest(jsonBody);
             navigate(MENU_URL);
@@ -57,8 +58,9 @@ export function LoginForm() {
             } else {
                 errorMessageRef.current = "Server unavailable.";
             }
+            
             setWaitingForResponse(false);
-            setDisplayError(true);
+            setErrorMessageEnabled(true);
         }
     }
 
@@ -101,7 +103,7 @@ export function LoginForm() {
                         validateForm();
                     }} />
                     
-                {<ErrorMessage enabled={displayError} message={errorMessageRef.current} />}
+                {<ErrorMessage enabled={errorMessageEnabled} message={errorMessageRef.current} />}
                 <button type="submit" disabled={!formIsValid || waitingForResponse}>Login</button>
                 <button onClick={goToRegistrationForm}>Go to Registration</button>
             </fieldset>
