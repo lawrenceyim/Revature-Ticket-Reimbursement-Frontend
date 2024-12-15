@@ -7,12 +7,14 @@ import { LOGGED_IN } from "../../consts/SessionStorageKeys";
 import { MENU_URL, REGISTRATION_URL } from "../../consts/PageUrls";
 import { sendLoginRequest } from "./LoginService";
 import { isPasswordValid, isUsernameValid } from "../../utils/Validation";
+import { BadRequestError } from "../../errors/HttpErrors";
 
 export function LoginForm() {
     const navigate = useNavigate();
     const [formIsValid, setFormValidity] = useState<boolean>(false);
     const [waitingForResponse, setWaitingForResponse] = useState<boolean>(false);
     const [displayError, setDisplayError] = useState<boolean>(false);
+    const errorMessageRef = useRef<string>("");
     const usernameRef = useRef<string>("");
     const passwordRef = useRef<string>("");
 
@@ -45,10 +47,15 @@ export function LoginForm() {
             username: usernameRef.current.trim(),
             password: passwordRef.current
         });
-        const loginSuccessful: boolean = await sendLoginRequest(jsonBody);
-        if (loginSuccessful) {
+        try {
+            await sendLoginRequest(jsonBody);
             navigate(MENU_URL);
-        } else {
+        } catch (error: any) {
+            if (error instanceof BadRequestError) {
+                errorMessageRef.current = "Invalid login credentials.";
+            } else {
+                errorMessageRef.current = "Server unavailable.";
+            }
             setWaitingForResponse(false);
             setDisplayError(true);
         }
@@ -94,7 +101,7 @@ export function LoginForm() {
                     }} />
                 {
                     displayError ? (<>
-                        <p className="error-message">Invalid login credentials.</p>
+                        <p className="error-message">{errorMessageRef.current}</p>
                     </>) : (<>
                     
                     </>)
