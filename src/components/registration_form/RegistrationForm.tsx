@@ -1,13 +1,15 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MAX_FIRST_NAME_LENGTH, MAX_LAST_NAME_LENGTH, MAX_PASSWORD_LENGTH, MAX_USERNAME_LENGTH, MIN_PASSWORD_LENGTH, MIN_USERNAME_LENGTH } from "../../api_data/ApiConsts";
 import { NavBar } from "../nav_bar/NavBar";
 import { LOGGED_IN } from "../../consts/SessionStorageKeys";
 import { LOGIN_URL, MENU_URL } from "../../consts/PageUrls";
 import { sendRegistrationRequest } from "./RegistrationService";
+import { isUsernameValid, isPasswordValid, isFirstNameValid, isLastNameValid } from "../../utils/Validation";
 
 export function RegistrationForm() {
     const navigate = useNavigate();
+    const [formIsValid, setFormValidity] = useState<boolean>(false);
     const usernameRef = useRef<string>("");
     const passwordRef = useRef<string>("");
     const firstNameRef = useRef<string>("");
@@ -21,6 +23,18 @@ export function RegistrationForm() {
 
     if (sessionStorage.getItem(LOGGED_IN)) {
         return null;
+    }
+
+    function validateForm(): void {
+        if (!isUsernameValid(usernameRef.current) ||
+            !isPasswordValid(passwordRef.current) ||
+            !isFirstNameValid(firstNameRef.current) ||
+            !isLastNameValid(lastNameRef.current)
+        ) {
+            setFormValidity(false);
+        } else {
+            setFormValidity(true);
+        }
     }
 
     async function register(event: any) {
@@ -55,7 +69,10 @@ export function RegistrationForm() {
                     required
                     minLength={MIN_USERNAME_LENGTH}
                     maxLength={MAX_USERNAME_LENGTH}
-                    onChange={e => usernameRef.current = e.target.value} />
+                    onChange={e => {
+                        usernameRef.current = e.target.value;
+                        validateForm();
+                    }} />
 
                 <label htmlFor="password">Password</label>
                 <input
@@ -66,7 +83,10 @@ export function RegistrationForm() {
                     required
                     minLength={MIN_PASSWORD_LENGTH}
                     maxLength={MAX_PASSWORD_LENGTH}
-                    onChange={e => passwordRef.current = e.target.value} />
+                    onChange={e => {
+                        passwordRef.current = e.target.value;
+                        validateForm();
+                    }} />
 
                 <label htmlFor="firstName">First Name</label>
                 <input
@@ -77,7 +97,10 @@ export function RegistrationForm() {
                     required
                     minLength={1}
                     maxLength={MAX_FIRST_NAME_LENGTH}
-                    onChange={e => firstNameRef.current = e.target.value} />
+                    onChange={e => {
+                        firstNameRef.current = e.target.value;
+                        validateForm();
+                    }} />
 
                 <label htmlFor="lastName">Last Name</label>
                 <input
@@ -88,9 +111,12 @@ export function RegistrationForm() {
                     required
                     minLength={1}
                     maxLength={MAX_LAST_NAME_LENGTH}
-                    onChange={e => lastNameRef.current = e.target.value} />
+                    onChange={e => {
+                        lastNameRef.current = e.target.value;
+                        validateForm();
+                    }} />
 
-                <button type="submit">Register</button>
+                <button type="submit" disabled={!formIsValid}>Register</button>
                 <button onClick={returnToLoginPage}>Return to Login</button>
             </fieldset>
         </form>
