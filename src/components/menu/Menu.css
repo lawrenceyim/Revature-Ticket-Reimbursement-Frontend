@@ -1,0 +1,14 @@
+.menu-button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: gray;
+    min-width: 400px;
+}
+
+.menu-button-container > button {
+    text-align: center;
+    width: 90%;
+    margin: 10px;
+}

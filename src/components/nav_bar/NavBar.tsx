@@ -41,11 +41,11 @@ export function NavBar() {
     }
 
     return (<>
-        <div className="navbar flex-container">
-            <div className="welcome-box flex-item">
+        <div className="navbar">
+            <div className="welcome-box">
                 <WelcomeBox />
             </div>
-            <div className="nav-buttons flex-item">
+            <div>
                 <NavButtons />
             </div>
         </div>

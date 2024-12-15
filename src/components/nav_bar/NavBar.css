@@ -1,4 +1,9 @@
-.flex-container {
+.navbar {
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -6,15 +11,8 @@
     background-color: gray;
 }
 
-.flex-item {
+.navbar > div {
     margin: 10px;
-}
-
-.navbar {
-    width: 100%;
-    position: fixed;
-    left: 0;
-    top: 0;
 }
 
 .welcome-box {

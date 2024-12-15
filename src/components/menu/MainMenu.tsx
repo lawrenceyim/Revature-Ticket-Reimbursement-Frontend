@@ -26,6 +26,8 @@ export function MainMenu() {
     const account: Account = JSON.parse(accountJson) as Account;
     const employeeRole: EmployeeRole = account.employeeRole as EmployeeRole;
 
+    console.log("EMPLOYEE ROLE: " + employeeRole);
+
     switch (employeeRole) {
         case EmployeeRole.EMPLOYEE:
             return <>
