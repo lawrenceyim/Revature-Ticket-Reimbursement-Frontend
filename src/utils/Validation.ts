@@ -1,4 +1,4 @@
-import { MAX_FIRST_NAME_LENGTH, MAX_LAST_NAME_LENGTH, MAX_PASSWORD_LENGTH, MAX_USERNAME_LENGTH, MIN_PASSWORD_LENGTH, MIN_USERNAME_LENGTH } from "../api_data/ApiConsts";
+import { MAX_FIRST_NAME_LENGTH, MAX_LAST_NAME_LENGTH, MAX_PASSWORD_LENGTH, MAX_USERNAME_LENGTH, MIN_PASSWORD_LENGTH, MIN_USERNAME_LENGTH } from "../consts/ApiConsts";
 
 export function isFirstNameValid(firstName: string): boolean {
     return firstName.length > 0 && firstName.length <= MAX_FIRST_NAME_LENGTH;
