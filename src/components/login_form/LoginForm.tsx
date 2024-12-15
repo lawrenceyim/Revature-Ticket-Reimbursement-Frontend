@@ -8,6 +8,7 @@ import { MENU_URL, REGISTRATION_URL } from "../../consts/PageUrls";
 import { sendLoginRequest } from "./LoginService";
 import { isPasswordValid, isUsernameValid } from "../../utils/Validation";
 import { BadRequestError } from "../../errors/HttpErrors";
+import { ErrorMessage } from "../error_message/ErrorMessage";
 
 export function LoginForm() {
     const navigate = useNavigate();
@@ -99,13 +100,8 @@ export function LoginForm() {
                         passwordRef.current = e.target.value;
                         validateForm();
                     }} />
-                {
-                    displayError ? (<>
-                        <p className="error-message">{errorMessageRef.current}</p>
-                    </>) : (<>
                     
-                    </>)
-                }
+                {<ErrorMessage enabled={displayError} message={errorMessageRef.current} />}
                 <button type="submit" disabled={!formIsValid || waitingForResponse}>Login</button>
                 <button onClick={goToRegistrationForm}>Go to Registration</button>
             </fieldset>
