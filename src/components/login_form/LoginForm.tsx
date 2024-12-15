@@ -11,6 +11,7 @@ import { isPasswordValid, isUsernameValid } from "../../utils/Validation";
 export function LoginForm() {
     const navigate = useNavigate();
     const [formIsValid, setFormValidity] = useState<boolean>(false);
+    const [waitingForResponse, setWaitingForResponse] = useState<boolean>(false);
     const usernameRef = useRef<string>("");
     const passwordRef = useRef<string>("");
 
@@ -36,12 +37,14 @@ export function LoginForm() {
 
     async function login(event: any): Promise<void> {
         event.preventDefault();
+        setWaitingForResponse(true);
+
         const jsonBody: string = JSON.stringify({
             username: usernameRef.current.trim(),
             password: passwordRef.current
         });
         const loginSuccessful: boolean = await sendLoginRequest(jsonBody);
-        loginSuccessful ? navigate(MENU_URL) : null;
+        loginSuccessful ? navigate(MENU_URL) : setWaitingForResponse(false);
     }
 
     function goToRegistrationForm(event: any) {
@@ -83,7 +86,7 @@ export function LoginForm() {
                         validateForm();
                     }} />
 
-                <button type="submit" disabled={!formIsValid}>Login</button>
+                <button type="submit" disabled={!formIsValid && !waitingForResponse}>Login</button>
                 <button onClick={goToRegistrationForm}>Go to Registration</button>
             </fieldset>
         </form>

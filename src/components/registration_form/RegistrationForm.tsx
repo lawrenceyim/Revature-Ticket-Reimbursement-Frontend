@@ -10,6 +10,7 @@ import { isUsernameValid, isPasswordValid, isFirstNameValid, isLastNameValid } f
 export function RegistrationForm() {
     const navigate = useNavigate();
     const [formIsValid, setFormValidity] = useState<boolean>(false);
+    const [waitingForResponse, setWaitingForResponse] = useState<boolean>(false);
     const usernameRef = useRef<string>("");
     const passwordRef = useRef<string>("");
     const firstNameRef = useRef<string>("");
@@ -39,6 +40,8 @@ export function RegistrationForm() {
 
     async function register(event: any) {
         event.preventDefault();
+        setWaitingForResponse(true);
+
         const jsonBody: string = JSON.stringify({
             username: usernameRef.current.trim(),
             password: passwordRef.current,
@@ -46,7 +49,7 @@ export function RegistrationForm() {
             lastName: lastNameRef.current
         });
         const registrationSuccessful: boolean = await sendRegistrationRequest(jsonBody);
-        registrationSuccessful ? navigate(MENU_URL) : null;
+        registrationSuccessful ? navigate(MENU_URL) : setWaitingForResponse(false);
     }
 
     function returnToLoginPage(event: any) {
@@ -116,7 +119,7 @@ export function RegistrationForm() {
                         validateForm();
                     }} />
 
-                <button type="submit" disabled={!formIsValid}>Register</button>
+                <button type="submit" disabled={!formIsValid && !waitingForResponse}>Register</button>
                 <button onClick={returnToLoginPage}>Return to Login</button>
             </fieldset>
         </form>
