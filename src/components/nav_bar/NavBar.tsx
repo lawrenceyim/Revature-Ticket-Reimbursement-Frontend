@@ -24,7 +24,6 @@ export function NavBar() {
         }
 
         const account: Account = JSON.parse(accountJson);
-        console.log(account);
         return (<>
             <p>Welcome, {account.firstName} {account.lastName}.</p>
             <p>Role: {capitalizeFirstLetterOnly(account?.employeeRole as string)}</p>
