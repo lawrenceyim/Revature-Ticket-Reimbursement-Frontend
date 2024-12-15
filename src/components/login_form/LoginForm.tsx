@@ -1,5 +1,5 @@
 import "./LoginForm.css";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MAX_PASSWORD_LENGTH, MAX_USERNAME_LENGTH, MIN_PASSWORD_LENGTH, MIN_USERNAME_LENGTH } from "../../api_data/ApiConsts";
 import { NavBar } from "../nav_bar/NavBar";
@@ -9,6 +9,7 @@ import { sendLoginRequest } from "./LoginService";
 
 export function LoginForm() {
     const navigate = useNavigate();
+    const [canSubmit, setCanSubmit] = useState<boolean>(false);
     const usernameRef = useRef<string>("");
     const passwordRef = useRef<string>("");
 
@@ -22,7 +23,19 @@ export function LoginForm() {
         return null;
     }
 
-    async function login(event: any) {
+    function validateForm(): void {
+        if (usernameRef.current.length < MIN_USERNAME_LENGTH ||
+            usernameRef.current.length > MAX_USERNAME_LENGTH ||
+            passwordRef.current.length < MIN_PASSWORD_LENGTH ||
+            passwordRef.current.length > MAX_PASSWORD_LENGTH
+        ) {
+            setCanSubmit(false);
+        } else {
+            setCanSubmit(true);
+        }
+    }
+
+    async function login(event: any): Promise<void> {
         event.preventDefault();
         const jsonBody: string = JSON.stringify({
             username: usernameRef.current.trim(),
@@ -52,7 +65,10 @@ export function LoginForm() {
                     required
                     minLength={MIN_USERNAME_LENGTH}
                     maxLength={MAX_USERNAME_LENGTH}
-                    onChange={e => usernameRef.current = e.target.value} />
+                    onChange={e => {
+                        usernameRef.current = e.target.value;
+                        validateForm();
+                    }} />
 
                 <label htmlFor="password">Password</label>
                 <input
@@ -63,9 +79,12 @@ export function LoginForm() {
                     required
                     minLength={MIN_PASSWORD_LENGTH}
                     maxLength={MAX_PASSWORD_LENGTH}
-                    onChange={e => passwordRef.current = e.target.value} />
+                    onChange={e => {
+                        passwordRef.current = e.target.value;
+                        validateForm();
+                    }} />
 
-                <button type="submit">Login</button>
+                <button type="submit" disabled={!canSubmit}>Login</button>
                 <button onClick={goToRegistrationForm}>Go to Registration</button>
             </fieldset>
         </form>
