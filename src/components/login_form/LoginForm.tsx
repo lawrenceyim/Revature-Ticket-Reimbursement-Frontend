@@ -10,7 +10,7 @@ import { isPasswordValid, isUsernameValid } from "../../utils/Validation";
 
 export function LoginForm() {
     const navigate = useNavigate();
-    const [canSubmit, setCanSubmit] = useState<boolean>(false);
+    const [formIsValid, setFormValidity] = useState<boolean>(false);
     const usernameRef = useRef<string>("");
     const passwordRef = useRef<string>("");
 
@@ -28,9 +28,9 @@ export function LoginForm() {
         if (!isUsernameValid(usernameRef.current) ||
             !isPasswordValid(passwordRef.current)
         ) {
-            setCanSubmit(false);
+            setFormValidity(false);
         } else {
-            setCanSubmit(true);
+            setFormValidity(true);
         }
     }
 
@@ -83,7 +83,7 @@ export function LoginForm() {
                         validateForm();
                     }} />
 
-                <button type="submit" disabled={!canSubmit}>Login</button>
+                <button type="submit" disabled={!formIsValid}>Login</button>
                 <button onClick={goToRegistrationForm}>Go to Registration</button>
             </fieldset>
         </form>
