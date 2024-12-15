@@ -119,7 +119,7 @@ export function RegistrationForm() {
                         validateForm();
                     }} />
 
-                <button type="submit" disabled={!formIsValid && !waitingForResponse}>Register</button>
+                <button type="submit" disabled={!formIsValid || waitingForResponse}>Register</button>
                 <button onClick={returnToLoginPage}>Return to Login</button>
             </fieldset>
         </form>

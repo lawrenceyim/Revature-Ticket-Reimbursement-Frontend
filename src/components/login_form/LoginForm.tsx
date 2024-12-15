@@ -12,6 +12,7 @@ export function LoginForm() {
     const navigate = useNavigate();
     const [formIsValid, setFormValidity] = useState<boolean>(false);
     const [waitingForResponse, setWaitingForResponse] = useState<boolean>(false);
+    const [displayError, setDisplayError] = useState<boolean>(false);
     const usernameRef = useRef<string>("");
     const passwordRef = useRef<string>("");
 
@@ -38,13 +39,19 @@ export function LoginForm() {
     async function login(event: any): Promise<void> {
         event.preventDefault();
         setWaitingForResponse(true);
+        setDisplayError(false);
 
         const jsonBody: string = JSON.stringify({
             username: usernameRef.current.trim(),
             password: passwordRef.current
         });
         const loginSuccessful: boolean = await sendLoginRequest(jsonBody);
-        loginSuccessful ? navigate(MENU_URL) : setWaitingForResponse(false);
+        if (loginSuccessful) {
+            navigate(MENU_URL);
+        } else {
+            setWaitingForResponse(false);
+            setDisplayError(true);
+        }
     }
 
     function goToRegistrationForm(event: any) {
@@ -85,8 +92,14 @@ export function LoginForm() {
                         passwordRef.current = e.target.value;
                         validateForm();
                     }} />
-
-                <button type="submit" disabled={!formIsValid && !waitingForResponse}>Login</button>
+                {
+                    displayError ? (<>
+                        <p className="error-message">Invalid login credentials.</p>
+                    </>) : (<>
+                    
+                    </>)
+                }
+                <button type="submit" disabled={!formIsValid || waitingForResponse}>Login</button>
                 <button onClick={goToRegistrationForm}>Go to Registration</button>
             </fieldset>
         </form>
