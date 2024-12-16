@@ -24,5 +24,4 @@ export async function sendRegistrationRequest(jsonBody: string): Promise<void> {
     const account: Account = await response.json();
     sessionStorage.setItem(USER_ACCOUNT, JSON.stringify(account))
     sessionStorage.setItem(LOGGED_IN, JSON.stringify(true));
-
 }
