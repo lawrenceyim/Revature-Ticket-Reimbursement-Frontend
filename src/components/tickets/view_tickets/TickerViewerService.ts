@@ -1,8 +1,11 @@
 import { StatusCodes } from "http-status-codes";
 import { Ticket } from "../../../interfaces/Ticket";
+import { TicketStatusOption } from "../../../enums/TicketStatus";
+import { convertTicketStatusToApiEndpoint } from "../../../utils/TicketStatusToApiUrl";
 
-export async function findAllTicketsRequest(): Promise<Ticket[]> {
-    const response = await fetch("http://localhost:8080/tickets");
+export async function findAllTicketsByStatusRequest(status: TicketStatusOption): Promise<Ticket[]> {
+    const apiEndpoint: string = status == TicketStatusOption.ALL ? "" : "/" + convertTicketStatusToApiEndpoint(status);
+    const response = await fetch(`http://localhost:8080/tickets${apiEndpoint}`);
 
     if (response.status != StatusCodes.OK) {
         throw new Error("Server unavailable");

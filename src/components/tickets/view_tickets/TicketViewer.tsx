@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { Ticket } from "../../../interfaces/Ticket";
 import { TicketStatusOption } from "../../../enums/TicketStatus";
 import { TicketTableRow } from "../ticket/TicketTableRow";
-import { findAllTicketsRequest } from "./TickerViewerService";
+import { findAllTicketsByStatusRequest } from "./TickerViewerService";
 
 export function TicketViewer() {
     const [tickets, setTickets] = useState<Ticket[]>([]);
@@ -17,9 +17,8 @@ export function TicketViewer() {
     }, [status])
 
     async function changeTicketsShown() {
-        console.log(status);
         try {
-            const receivedTickets: Ticket[] = await findAllTicketsRequest();
+            const receivedTickets: Ticket[] = await findAllTicketsByStatusRequest(status);
             setTickets(receivedTickets);
         } catch (error: any) {
             setTickets([]);
