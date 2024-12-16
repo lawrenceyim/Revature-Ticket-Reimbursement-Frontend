@@ -1,5 +1,5 @@
 import "./TicketCreation.css";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MAX_TICKET_DESCRIPTION_LENGTH } from "../../../consts/ApiConsts";
 import { ReimbursementType } from "../../../enums/ReimbursementType";
 import { NavBar } from "../../nav_bar/NavBar";
@@ -16,9 +16,13 @@ export function TicketCreation() {
     const [errorMessageEnabled, setErrorMessageEnabled] = useState<boolean>(false);
     const [formIsValid, setFormValidity] = useState<boolean>(false);
     const [waitingForResponse, setWaitingForResponse] = useState<boolean>(false);
-    const descriptionRef = useRef<string>("");
+    const [description, setDescription] = useState<string>("");
     const errorMessageRef = useRef<string>("");
     const reimbursementTypeRef = useRef<ReimbursementType>(ReimbursementType.FOOD);
+
+    useEffect(() => {
+        validateForm();
+    }, [amount, description]);
 
     function truncateAmountToTwoDecimals(event: any) {
         let inputAmount: number = event.target.value;
@@ -27,7 +31,7 @@ export function TicketCreation() {
     }
 
     function validateForm(): void {
-        if (amount <= 0 || descriptionRef.current.length == 0) {
+        if (amount <= 0 || description.trim().length == 0) {
             setFormValidity(false);
         } else {
             setFormValidity(true);
@@ -40,7 +44,7 @@ export function TicketCreation() {
         setErrorMessageEnabled(false);
 
         const jsonBody: string = JSON.stringify({
-            description: descriptionRef.current,
+            description: description.trim(),
             madeBy: getAccountId(),
             reimbursementAmount: amount,
             reimbursementType: reimbursementTypeRef.current
@@ -90,10 +94,7 @@ export function TicketCreation() {
                     min={0}
                     step="0.01"
                     value={amount}
-                    onInput={e => {
-                        truncateAmountToTwoDecimals(e);
-                        validateForm();
-                    }} />
+                    onInput={e => truncateAmountToTwoDecimals(e)} />
 
                 <label>Reimbursement Description</label>
                 <textarea
@@ -101,11 +102,8 @@ export function TicketCreation() {
                     required
                     minLength={1}
                     maxLength={MAX_TICKET_DESCRIPTION_LENGTH}
-                    onChange={e => {
-                        descriptionRef.current = e.target.value;
-                        validateForm();
-                    }} />
-                    
+                    onChange={e => setDescription(e.target.value)} />
+
                 {<ErrorMessage enabled={errorMessageEnabled} message={errorMessageRef.current} />}
                 <button type="submit" disabled={!formIsValid || waitingForResponse}>Submit</button>
                 <button onClick={goToMenu}>Return to Menu</button>
