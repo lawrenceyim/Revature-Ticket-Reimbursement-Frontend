@@ -13,14 +13,17 @@ import { sendTicketCreationRequest } from "./TicketCreationService";
 export function TicketCreator() {
     const navigate = useNavigate();
     const [amount, setAmount] = useState<number>(0);
+    const [description, setDescription] = useState<string>("");
     const [errorMessageEnabled, setErrorMessageEnabled] = useState<boolean>(false);
     const [formIsValid, setFormValidity] = useState<boolean>(false);
+    const [ticketCreated, setTicketCreated] = useState<boolean>(false);
     const [waitingForResponse, setWaitingForResponse] = useState<boolean>(false);
-    const [description, setDescription] = useState<string>("");
     const errorMessageRef = useRef<string>("");
     const reimbursementTypeRef = useRef<ReimbursementType>(ReimbursementType.FOOD);
 
     useEffect(() => {
+        console.log(`Amount: ${amount}`);
+        console.log(`Description: ${description}`);
         validateForm();
     }, [amount, description]);
 
@@ -38,10 +41,16 @@ export function TicketCreator() {
         }
     }
 
+    function clearForm() {
+        setAmount(0);
+        setDescription("");
+    }
+
     async function submitTicket(event: any) {
         event.preventDefault();
-        setWaitingForResponse(true);
         setErrorMessageEnabled(false);
+        setWaitingForResponse(true);
+        setTicketCreated(false);
 
         const jsonBody: string = JSON.stringify({
             description: description.trim(),
@@ -52,16 +61,17 @@ export function TicketCreator() {
 
         try {
             await sendTicketCreationRequest(jsonBody);
-            navigate(MENU_URL)
+            setTicketCreated(true);
+            clearForm();
         } catch (error: any) {
             if (error instanceof BadRequestError) {
                 errorMessageRef.current = "Invalid ticket details.";
             } else {
                 errorMessageRef.current = "Server unavailable.";
             }
-
-            setWaitingForResponse(false);
             setErrorMessageEnabled(true);
+        } finally {
+            setWaitingForResponse(false);
         }
     }
 
@@ -102,9 +112,11 @@ export function TicketCreator() {
                     required
                     minLength={1}
                     maxLength={MAX_TICKET_DESCRIPTION_LENGTH}
+                    value={description}
                     onChange={e => setDescription(e.target.value)} />
 
                 {<ErrorMessage enabled={errorMessageEnabled} message={errorMessageRef.current} />}
+                {ticketCreated ? <p style={{color: "green"}}>Ticket created.</p> : <></>}
                 <button type="submit" disabled={!formIsValid || waitingForResponse}>Submit</button>
                 <button onClick={goToMenu}>Return to Menu</button>
             </fieldset>
