@@ -1,7 +1,3 @@
-* {
-    /* border: 1px solid red; */
-}
-
 table {
     width: 100%;
     width: 100%;
@@ -24,8 +20,16 @@ table th:nth-child(5) {
     min-width: 200px;
 }
 
-#no-ticket-p {
+.notification {
     justify-self: center;
     text-align: center;
     width: 100%;
+}
+
+.red-text {
+    color: red;
+}
+
+.green-text {
+    color: green;
 }
