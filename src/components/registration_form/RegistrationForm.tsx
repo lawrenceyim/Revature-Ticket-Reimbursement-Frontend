@@ -11,14 +11,18 @@ import { isLoggedIn } from "../../utils/LoginValidation";
 
 export function RegistrationForm() {
     const navigate = useNavigate();
-    const [formIsValid, setFormValidity] = useState<boolean>(false);
-    const [waitingForResponse, setWaitingForResponse] = useState<boolean>(false);
     const [errorMessageEnabled, setErrorMessageEnabled] = useState<boolean>(false);
+    const [firstName, setFirstName] = useState<string>("");
+    const [formIsValid, setFormValidity] = useState<boolean>(false);
+    const [lastName, setLastName] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [username, setUsername] = useState<string>("");
+    const [waitingForResponse, setWaitingForResponse] = useState<boolean>(false);
     const errorMessageRef = useRef<string>("");
-    const usernameRef = useRef<string>("");
-    const passwordRef = useRef<string>("");
-    const firstNameRef = useRef<string>("");
-    const lastNameRef = useRef<string>("");
+
+    useEffect(() => {
+        validateForm();
+    }, [firstName, lastName, password, username])
 
     useEffect(() => {
         if (isLoggedIn()) {
@@ -31,10 +35,10 @@ export function RegistrationForm() {
     }
 
     function validateForm(): void {
-        if (!isUsernameValid(usernameRef.current) ||
-            !isPasswordValid(passwordRef.current) ||
-            !isFirstNameValid(firstNameRef.current) ||
-            !isLastNameValid(lastNameRef.current)
+        if (!isUsernameValid(username.trim()) ||
+            !isPasswordValid(password.trim()) ||
+            !isFirstNameValid(firstName.trim()) ||
+            !isLastNameValid(lastName.trim())
         ) {
             setFormValidity(false);
         } else {
@@ -48,12 +52,12 @@ export function RegistrationForm() {
         setErrorMessageEnabled(false);
 
         const jsonBody: string = JSON.stringify({
-            username: usernameRef.current.trim(),
-            password: passwordRef.current,
-            firstName: firstNameRef.current,
-            lastName: lastNameRef.current
+            username: username.trim(),
+            password: password.trim(),
+            firstName: firstName.trim(),
+            lastName: lastName.trim()
         });
-        
+
         try {
             await sendRegistrationRequest(jsonBody);
             navigate(MENU_URL)
@@ -89,10 +93,7 @@ export function RegistrationForm() {
                     required
                     minLength={MIN_USERNAME_LENGTH}
                     maxLength={MAX_USERNAME_LENGTH}
-                    onChange={e => {
-                        usernameRef.current = e.target.value;
-                        validateForm();
-                    }} />
+                    onChange={e => setUsername(e.target.value)} />
 
                 <label htmlFor="password">Password</label>
                 <input
@@ -103,10 +104,7 @@ export function RegistrationForm() {
                     required
                     minLength={MIN_PASSWORD_LENGTH}
                     maxLength={MAX_PASSWORD_LENGTH}
-                    onChange={e => {
-                        passwordRef.current = e.target.value;
-                        validateForm();
-                    }} />
+                    onChange={e => setPassword(e.target.value)} />
 
                 <label htmlFor="firstName">First Name</label>
                 <input
@@ -117,10 +115,7 @@ export function RegistrationForm() {
                     required
                     minLength={1}
                     maxLength={MAX_FIRST_NAME_LENGTH}
-                    onChange={e => {
-                        firstNameRef.current = e.target.value;
-                        validateForm();
-                    }} />
+                    onChange={e => setFirstName(e.target.value)} />
 
                 <label htmlFor="lastName">Last Name</label>
                 <input
@@ -131,10 +126,7 @@ export function RegistrationForm() {
                     required
                     minLength={1}
                     maxLength={MAX_LAST_NAME_LENGTH}
-                    onChange={e => {
-                        lastNameRef.current = e.target.value;
-                        validateForm();
-                    }} />
+                    onChange={e => setLastName(e.target.value)} />
 
                 {<ErrorMessage enabled={errorMessageEnabled} message={errorMessageRef.current} />}
                 <button type="submit" disabled={!formIsValid || waitingForResponse}>Register</button>

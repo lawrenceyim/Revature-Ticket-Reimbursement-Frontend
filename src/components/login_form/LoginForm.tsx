@@ -12,12 +12,16 @@ import { isLoggedIn } from "../../utils/LoginValidation";
 
 export function LoginForm() {
     const navigate = useNavigate();
-    const [formIsValid, setFormValidity] = useState<boolean>(false);
-    const [waitingForResponse, setWaitingForResponse] = useState<boolean>(false);
     const [errorMessageEnabled, setErrorMessageEnabled] = useState<boolean>(false);
+    const [formIsValid, setFormValidity] = useState<boolean>(false);
+    const [password, setPassword] = useState<string>("");
+    const [username, setUsername] = useState<string>("");
+    const [waitingForResponse, setWaitingForResponse] = useState<boolean>(false);
     const errorMessageRef = useRef<string>("");
-    const usernameRef = useRef<string>("");
-    const passwordRef = useRef<string>("");
+
+    useEffect(() => {
+        validateForm();
+    }, [password, username]);
 
     useEffect(() => {
         if (isLoggedIn()) {
@@ -30,8 +34,8 @@ export function LoginForm() {
     }
 
     function validateForm(): void {
-        if (!isUsernameValid(usernameRef.current) ||
-            !isPasswordValid(passwordRef.current)
+        if (!isUsernameValid(username.trim()) ||
+            !isPasswordValid(password.trim())
         ) {
             setFormValidity(false);
         } else {
@@ -45,8 +49,8 @@ export function LoginForm() {
         setErrorMessageEnabled(false);
 
         const jsonBody: string = JSON.stringify({
-            username: usernameRef.current.trim(),
-            password: passwordRef.current
+            username: username.trim(),
+            password: password.trim()
         });
 
         try {
@@ -58,7 +62,7 @@ export function LoginForm() {
             } else {
                 errorMessageRef.current = "Server unavailable.";
             }
-            
+
             setWaitingForResponse(false);
             setErrorMessageEnabled(true);
         }
@@ -84,10 +88,7 @@ export function LoginForm() {
                     required
                     minLength={MIN_USERNAME_LENGTH}
                     maxLength={MAX_USERNAME_LENGTH}
-                    onChange={e => {
-                        usernameRef.current = e.target.value;
-                        validateForm();
-                    }} />
+                    onChange={e => setUsername(e.target.value)} />
 
                 <label htmlFor="password">Password</label>
                 <input
@@ -98,11 +99,8 @@ export function LoginForm() {
                     required
                     minLength={MIN_PASSWORD_LENGTH}
                     maxLength={MAX_PASSWORD_LENGTH}
-                    onChange={e => {
-                        passwordRef.current = e.target.value;
-                        validateForm();
-                    }} />
-                    
+                    onChange={e => setPassword(e.target.value)} />
+
                 {<ErrorMessage enabled={errorMessageEnabled} message={errorMessageRef.current} />}
                 <button type="submit" disabled={!formIsValid || waitingForResponse}>Login</button>
                 <button onClick={goToRegistrationForm}>Go to Registration</button>
