@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest'
-import {render} from "@testing-library/react"
+import { describe, expect, it } from 'vitest'
+import { render } from "@testing-library/react"
 import App from '../src/App';
 
 describe('A truthy statement', () => {
@@ -10,6 +10,12 @@ describe('A truthy statement', () => {
 
 describe("check app render", () => {
     it("renders", () => {
-        render(<App/>);
+        render(<App />);
     });
+
+    it("finds username", () => {
+        render(<App />);
+        const element: HTMLElement | null = document.getElementById("username");
+        expect(element).toBeDefined();
+    })
 });
