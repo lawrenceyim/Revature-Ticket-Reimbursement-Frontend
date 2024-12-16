@@ -1,4 +1,4 @@
-import "./TicketCreation.css";
+import "./TicketCreator.css";
 import { useEffect, useRef, useState } from "react";
 import { MAX_TICKET_DESCRIPTION_LENGTH } from "../../../consts/ApiConsts";
 import { ReimbursementType } from "../../../enums/ReimbursementType";
@@ -10,7 +10,7 @@ import { BadRequestError } from "../../../errors/HttpErrors";
 import { ErrorMessage } from "../../error_message/ErrorMessage";
 import { sendTicketCreationRequest } from "./TicketCreationService";
 
-export function TicketCreation() {
+export function TicketCreator() {
     const navigate = useNavigate();
     const [amount, setAmount] = useState<number>(0);
     const [errorMessageEnabled, setErrorMessageEnabled] = useState<boolean>(false);

@@ -1,16 +1,10 @@
-import { Account } from "./Account"
-
-export interface AccountProp {
-  account: Account | null,
-  setAccount: (account: Account) => void
-}
+import { Ticket } from "./Ticket";
 
 export interface ErrorMessageProp {
   enabled: boolean;
   message: string;
 }
 
-export interface LoginProp {
-  loggedIn: boolean,
-  setLogIn: (loggedIn: boolean) => void
+export interface TicketProp {
+    ticket: Ticket
 }

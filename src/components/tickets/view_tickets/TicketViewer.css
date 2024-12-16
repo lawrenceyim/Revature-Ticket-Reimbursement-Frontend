@@ -1,0 +1,31 @@
+* {
+    /* border: 1px solid red; */
+}
+
+table {
+    width: 100%;
+    width: 100%;
+    position: fixed;
+    top: 100px;
+    left: 0;
+    text-align: left;
+}
+
+table > tr {
+    min-height: 50px;
+}
+
+table > td, th {
+    padding: 5px;
+    margin: 5px 15px;
+}
+
+table th:nth-child(5) {
+    min-width: 200px;
+}
+
+#no-ticket-p {
+    justify-self: center;
+    text-align: center;
+    width: 100%;
+}
