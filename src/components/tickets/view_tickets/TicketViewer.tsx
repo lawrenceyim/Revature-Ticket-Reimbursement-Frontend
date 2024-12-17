@@ -49,30 +49,33 @@ export function TicketViewer() {
     return (<>
         <NavBar />
         <table className="ticket-viewer">
-            <tr key="table-headers">
-                <th>Ticket ID</th>
-                <th>User ID</th>
-                <th>Reimbursement Type</th>
-                <th>Reimbursement Amount</th>
-                <th>Description</th>
-                <th>
-                    <select
-                        defaultValue={TicketStatusOption.ALL}
-                        onChange={e => setStatus(e.target.value as TicketStatusOption)}>
-                        {Object.values(TicketStatusOption).map(type => (
-                            <option key={type} value={type}>{type}</option>
-                        ))}
-                    </select>
-                </th>
-                {getEmployeeRole() == EmployeeRole.FINANCE_MANAGER ? (<>
-                    <th>Approve</th>
-                    <th>Reject</th>
-                </>) : (<></>)}
-            </tr>
-
-            {tickets.map(ticket =>
-                <TicketTableRow ticket={ticket} />
-            )}
+            <thead>
+                <tr key="table-headers">
+                    <th>Ticket ID</th>
+                    <th>User ID</th>
+                    <th>Reimbursement Type</th>
+                    <th>Reimbursement Amount</th>
+                    <th>Description</th>
+                    <th>
+                        <select
+                            defaultValue={TicketStatusOption.ALL}
+                            onChange={e => setStatus(e.target.value as TicketStatusOption)}>
+                            {Object.values(TicketStatusOption).map(type => (
+                                <option key={type} value={type}>{type}</option>
+                            ))}
+                        </select>
+                    </th>
+                    {getEmployeeRole() == EmployeeRole.FINANCE_MANAGER ? (<>
+                        <th>Approve</th>
+                        <th>Reject</th>
+                    </>) : (<></>)}
+                </tr>
+            </thead>
+            <tbody>
+                {tickets.map(ticket =>
+                    <TicketTableRow ticket={ticket} />
+                )}
+            </tbody>
         </table>
 
         {tickets.length == 0 ? (<Notification />) : (<></>)}
