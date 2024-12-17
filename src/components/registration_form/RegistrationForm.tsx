@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MAX_FIRST_NAME_LENGTH, MAX_LAST_NAME_LENGTH, MAX_PASSWORD_LENGTH, MAX_USERNAME_LENGTH, MIN_PASSWORD_LENGTH, MIN_USERNAME_LENGTH } from "../../consts/ApiConsts";
 import { NavBar } from "../nav_bar/NavBar";
-import { LOGIN_URL, MENU_URL } from "../../consts/PageUrls";
+import { MENU_URL } from "../../consts/PageUrls";
 import { sendRegistrationRequest } from "./RegistrationService";
 import { isUsernameValid, isPasswordValid, isFirstNameValid, isLastNameValid } from "../../utils/Validation";
 import { ErrorMessage } from "../error_message/ErrorMessage";

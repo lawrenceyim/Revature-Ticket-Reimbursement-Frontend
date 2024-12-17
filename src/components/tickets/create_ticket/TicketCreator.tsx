@@ -11,7 +11,6 @@ import { ErrorMessage } from "../../error_message/ErrorMessage";
 import { sendTicketCreationRequest } from "./TicketCreationService";
 
 export function TicketCreator() {
-    const navigate = useNavigate();
     const [amount, setAmount] = useState<number>(0);
     const [description, setDescription] = useState<string>("");
     const [errorMessageEnabled, setErrorMessageEnabled] = useState<boolean>(false);
