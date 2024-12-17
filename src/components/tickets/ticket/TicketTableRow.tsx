@@ -1,18 +1,19 @@
 import { EmployeeRole } from "../../../enums/EmployeeRole";
 import { TicketStatus } from "../../../enums/TicketStatus";
-import { TicketProp } from "../../../interfaces/Props";
+import { TicketRowProp } from "../../../interfaces/Props";
 import { getEmployeeRole } from "../../../utils/SessionStorageUtils";
 import { approveTicketRequest, denyTicketRequest } from "./TicketStatusService";
 
-export function TicketTableRow(prop: TicketProp) {
+export function TicketTableRow(prop: TicketRowProp) {
 
     async function approve(event: any) {
         event.preventDefault();
         console.log(prop.ticket);
         try {
-            await approveTicketRequest({ ticket: prop.ticket });
+            await approveTicketRequest(prop.ticket);
+            prop.callback();
         } catch (error: any) {
-            
+
         }
     }
 
@@ -20,9 +21,10 @@ export function TicketTableRow(prop: TicketProp) {
         event.preventDefault();
         console.log(prop.ticket);
         try {
-            await denyTicketRequest({ ticket: prop.ticket });
+            await denyTicketRequest(prop.ticket);
+            prop.callback();
         } catch (error: any) {
-            
+
         }
     }
 

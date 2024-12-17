@@ -5,6 +5,7 @@ export interface ErrorMessageProp {
   message: string;
 }
 
-export interface TicketProp {
-    ticket: Ticket
+export interface TicketRowProp {
+    ticket: Ticket;
+    callback: () => void;
 }

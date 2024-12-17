@@ -1,18 +1,19 @@
 import { StatusCodes } from "http-status-codes";
-import { TicketProp } from "../../../interfaces/Props";
+import { TicketRowProp } from "../../../interfaces/Props";
 import { BadRequestError } from "../../../errors/HttpErrors";
 import { TicketStatus } from "../../../enums/TicketStatus";
+import { Ticket } from "../../../interfaces/Ticket";
 
-export async function approveTicketRequest(ticket: TicketProp): Promise<void> {
+export async function approveTicketRequest(ticket: Ticket): Promise<void> {
     const ticketHeaders: Headers = new Headers();
     ticketHeaders.append("Content-Type", "application/json");
 
-    ticket.ticket.status = TicketStatus.APPROVED;
+    ticket.status = TicketStatus.APPROVED;
 
     const response = await fetch("http://localhost:8080/tickets/", {
         method: "PATCH",
         headers: ticketHeaders,
-        body: JSON.stringify(ticket.ticket)
+        body: JSON.stringify(ticket)
     });
 
     if (response.status == StatusCodes.BAD_REQUEST) {
@@ -24,16 +25,16 @@ export async function approveTicketRequest(ticket: TicketProp): Promise<void> {
     }
 }
 
-export async function denyTicketRequest(ticket: TicketProp): Promise<void> {
+export async function denyTicketRequest(ticket: Ticket): Promise<void> {
     const ticketHeaders: Headers = new Headers();
     ticketHeaders.append("Content-Type", "application/json");
 
-    ticket.ticket.status = TicketStatus.DENIED;
+    ticket.status = TicketStatus.DENIED;
 
     const response = await fetch("http://localhost:8080/tickets/", {
         method: "PATCH",
         headers: ticketHeaders,
-        body: JSON.stringify(ticket.ticket)
+        body: JSON.stringify(ticket)
     });
 
     if (response.status == StatusCodes.BAD_REQUEST) {

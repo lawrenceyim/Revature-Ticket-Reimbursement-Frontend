@@ -73,7 +73,7 @@ export function TicketViewer() {
             </thead>
             <tbody>
                 {tickets.map(ticket =>
-                    <TicketTableRow ticket={ticket} />
+                    <TicketTableRow ticket={ticket} callback={changeTicketsShown} />
                 )}
             </tbody>
         </table>
