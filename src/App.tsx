@@ -7,16 +7,17 @@ import { MainMenu } from './components/menu/MainMenu';
 import { TicketCreator } from './components/tickets/create_ticket/TicketCreator';
 import { TicketViewer } from './components/tickets/view_tickets/TicketViewer';
 import { PrivateRoute } from './components/route/PrivateRoute';
+import { UnathenticatedRoute } from './components/route/UnauthenticatedRoute';
 
 function App() {
   return (<>
     <BrowserRouter>
       <Routes>
         <Route path={CREATE_TICKET_URL} element={<PrivateRoute reactNode={<TicketCreator />} />} />
-        <Route path={LOGIN_URL} element={<LoginForm />}></Route>
+        <Route path={LOGIN_URL} element={<UnathenticatedRoute reactNode={<LoginForm />} />} />
         <Route path={MENU_URL} element={<PrivateRoute reactNode={<MainMenu />} />} />
-        <Route path={REGISTRATION_URL} element={<RegistrationForm />}></Route>
-        <Route path={ROOT_URL} element={<Navigate to={LOGIN_URL} />}></Route>
+        <Route path={REGISTRATION_URL} element={<UnathenticatedRoute reactNode={<RegistrationForm />} />} />
+        <Route path={ROOT_URL} element={<Navigate to={LOGIN_URL} />} />
         <Route path={VIEW_TICKETS_URL} element={<PrivateRoute reactNode={<TicketViewer />} />} />
       </Routes>
     </BrowserRouter>

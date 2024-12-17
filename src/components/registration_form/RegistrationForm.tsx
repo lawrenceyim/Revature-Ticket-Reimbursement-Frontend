@@ -7,7 +7,6 @@ import { sendRegistrationRequest } from "./RegistrationService";
 import { isUsernameValid, isPasswordValid, isFirstNameValid, isLastNameValid } from "../../utils/Validation";
 import { ErrorMessage } from "../error_message/ErrorMessage";
 import { BadRequestError } from "../../errors/HttpErrors";
-import { isLoggedIn } from "../../utils/LoginValidation";
 
 export function RegistrationForm() {
     const navigate = useNavigate();
@@ -23,16 +22,6 @@ export function RegistrationForm() {
     useEffect(() => {
         validateForm();
     }, [firstName, lastName, password, username])
-
-    useEffect(() => {
-        if (isLoggedIn()) {
-            navigate(MENU_URL);
-        }
-    });
-
-    if (isLoggedIn()) {
-        return null;
-    }
 
     function validateForm(): void {
         if (!isUsernameValid(username.trim()) ||

@@ -8,7 +8,6 @@ import { sendLoginRequest } from "./LoginService";
 import { isPasswordValid, isUsernameValid } from "../../utils/Validation";
 import { BadRequestError } from "../../errors/HttpErrors";
 import { ErrorMessage } from "../error_message/ErrorMessage";
-import { isLoggedIn } from "../../utils/LoginValidation";
 
 export function LoginForm() {
     const navigate = useNavigate();
@@ -22,16 +21,6 @@ export function LoginForm() {
     useEffect(() => {
         validateForm();
     }, [password, username]);
-
-    useEffect(() => {
-        if (isLoggedIn()) {
-            navigate(MENU_URL);
-        }
-    });
-
-    if (isLoggedIn()) {
-        return null;
-    }
 
     function validateForm(): void {
         if (!isUsernameValid(username.trim()) ||
