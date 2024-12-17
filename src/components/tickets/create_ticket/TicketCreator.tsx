@@ -73,11 +73,6 @@ export function TicketCreator() {
         }
     }
 
-    function goToMenu(event: any) {
-        event.preventDefault();
-        navigate(MENU_URL);
-    }
-
     return (<>
         <NavBar />
         <form onSubmit={submitTicket}>
@@ -116,7 +111,6 @@ export function TicketCreator() {
                 {<ErrorMessage enabled={errorMessageEnabled} message={errorMessageRef.current} />}
                 {ticketCreated ? <p style={{color: "green"}}>Ticket created.</p> : <></>}
                 <button type="submit" disabled={!formIsValid || waitingForResponse}>Submit</button>
-                <button onClick={goToMenu}>Return to Menu</button>
             </fieldset>
         </form>
     </>);

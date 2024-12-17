@@ -73,11 +73,6 @@ export function RegistrationForm() {
         }
     }
 
-    function returnToLoginPage(event: any) {
-        event.preventDefault();
-        navigate(LOGIN_URL);
-    }
-
     return (<>
         <NavBar />
         <form onSubmit={register}>
@@ -130,7 +125,6 @@ export function RegistrationForm() {
 
                 {<ErrorMessage enabled={errorMessageEnabled} message={errorMessageRef.current} />}
                 <button type="submit" disabled={!formIsValid || waitingForResponse}>Register</button>
-                <button onClick={returnToLoginPage}>Return to Login</button>
             </fieldset>
         </form>
     </>);
