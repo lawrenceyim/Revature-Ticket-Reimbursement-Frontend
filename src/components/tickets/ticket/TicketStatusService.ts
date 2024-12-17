@@ -1,5 +1,4 @@
 import { StatusCodes } from "http-status-codes";
-import { TicketRowProp } from "../../../interfaces/Props";
 import { BadRequestError } from "../../../errors/HttpErrors";
 import { TicketStatus } from "../../../enums/TicketStatus";
 import { Ticket } from "../../../interfaces/Ticket";

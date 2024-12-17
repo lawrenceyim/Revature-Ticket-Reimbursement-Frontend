@@ -10,6 +10,7 @@ import { findAllTicketsByAccountIdAndStatusRequest, findAllTicketsByStatusReques
 
 export function TicketViewer() {
     const [fetching, setFetching] = useState<boolean>(false);
+    const [reimbursementType, setReimbursementType] = useState<boolean>(false);
     const [serverUnavailable, setServerUnavailable] = useState<boolean>(false);
     const [status, setStatus] = useState<TicketStatusOption>(TicketStatusOption.ALL);
     const [tickets, setTickets] = useState<Ticket[]>([]);
@@ -67,7 +68,7 @@ export function TicketViewer() {
                     </th>
                     {getEmployeeRole() == EmployeeRole.FINANCE_MANAGER ? (<>
                         <th>Approve</th>
-                        <th>Reject</th>
+                        <th>Deny</th>
                     </>) : (<></>)}
                 </tr>
             </thead>

@@ -39,7 +39,7 @@ export function TicketTableRow(prop: TicketRowProp) {
         <td>{prop.ticket.status}</td>
         {getEmployeeRole() == EmployeeRole.FINANCE_MANAGER && prop.ticket.status == TicketStatus.PENDING ? (<>
             <td><button onClick={approve}>Approve</button></td>
-            <td><button onClick={deny}>Reject</button></td>
+            <td><button onClick={deny}>Deny</button></td>
         </>) : (<></>)}
     </tr>);
 }
