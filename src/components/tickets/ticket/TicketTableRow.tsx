@@ -11,9 +11,10 @@ export function TicketTableRow(prop: TicketRowProp) {
         console.log(prop.ticket);
         try {
             await approveTicketRequest(prop.ticket);
-            prop.callback();
         } catch (error: any) {
 
+        } finally {
+            prop.callback();
         }
     }
 
@@ -22,9 +23,10 @@ export function TicketTableRow(prop: TicketRowProp) {
         console.log(prop.ticket);
         try {
             await denyTicketRequest(prop.ticket);
-            prop.callback();
         } catch (error: any) {
 
+        } finally {
+            prop.callback();
         }
     }
 
