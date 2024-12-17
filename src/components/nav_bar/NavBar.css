@@ -19,3 +19,7 @@
 .welcome-box {
     text-align: left;
 }
+
+.navbar button {
+    margin: 10px;
+}

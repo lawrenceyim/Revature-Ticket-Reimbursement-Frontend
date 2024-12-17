@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Account } from "../../interfaces/Account";
 import { capitalizeFirstLetterOnly } from '../../utils/Capitalization';
 import { LOGGED_IN, USER_ACCOUNT } from '../../consts/SessionStorageKeys';
-import { LOGIN_URL } from '../../consts/PageUrls';
+import { LOGIN_URL, MENU_URL } from '../../consts/PageUrls';
 import { isLoggedIn } from '../../utils/LoginValidation';
 import { getAccount } from '../../utils/SessionStorageUtils';
 
@@ -17,8 +17,13 @@ export function NavBar() {
         navigate(LOGIN_URL);
     }
 
+    function goToMenu(event: any) {
+        event.preventDefault();
+        navigate(MENU_URL);
+    }
+
     function WelcomeBox() {
-        const account: Account = getAccount();
+        const account: Account = getAccount() as Account;
 
         if (!isLoggedIn()) {
             return (<>
@@ -34,11 +39,8 @@ export function NavBar() {
 
     function NavButtons() {
         return (<>
-            {sessionStorage.getItem(LOGGED_IN) ? (<>
-                <button onClick={logout}>Logout</button>
-            </>) : (<>
-
-            </>)}
+            {sessionStorage.getItem(LOGGED_IN) ? <button onClick={goToMenu}>Menu</button> : <></>}
+            {sessionStorage.getItem(LOGGED_IN) ? <button onClick={logout}>Logout</button> : <></>}
         </>);
     }
 

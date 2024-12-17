@@ -22,8 +22,6 @@ export function TicketCreator() {
     const reimbursementTypeRef = useRef<ReimbursementType>(ReimbursementType.FOOD);
 
     useEffect(() => {
-        console.log(`Amount: ${amount}`);
-        console.log(`Description: ${description}`);
         validateForm();
     }, [amount, description]);
 
