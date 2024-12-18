@@ -44,7 +44,7 @@ export function UserManagement() {
                 </tr>
             </thead>
             <tbody>
-                {accounts.map(account => <AccountTableRow account={account} callback={changeAccountsShown} />)}
+                {accounts.map(account => <AccountTableRow key={account.accountId} account={account} callback={changeAccountsShown} />)}
             </tbody>
         </table>
         <Notification/>

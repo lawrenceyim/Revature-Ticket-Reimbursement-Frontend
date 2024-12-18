@@ -8,7 +8,6 @@ export function TicketTableRow(props: TicketRowProp) {
 
     async function approve(event: any) {
         event.preventDefault();
-        console.log(props.ticket);
         try {
             await approveTicketRequest(props.ticket);
         } catch (error: any) {
@@ -37,9 +36,9 @@ export function TicketTableRow(props: TicketRowProp) {
         <td>{props.ticket.amount}</td>
         <td>{props.ticket.description}</td>
         <td>{props.ticket.status}</td>
-        {getEmployeeRole() == EmployeeRole.FINANCE_MANAGER && props.ticket.status == TicketStatus.PENDING ? (<>
+        {getEmployeeRole() == EmployeeRole.FINANCE_MANAGER && props.ticket.status == TicketStatus.PENDING ? <>
             <td><button onClick={approve}>Approve</button></td>
             <td><button onClick={deny}>Deny</button></td>
-        </>) : (<></>)}
+        </> : <></>}
     </tr>);
 }
