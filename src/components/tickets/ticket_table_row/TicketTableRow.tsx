@@ -19,7 +19,6 @@ export function TicketTableRow(props: TicketRowProp) {
 
     async function deny(event: any) {
         event.preventDefault();
-        console.log(props.ticket);
         try {
             await denyTicketRequest(props.ticket);
         } catch (error: any) {
