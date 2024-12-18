@@ -25,9 +25,9 @@ export function TicketViewer() {
         setServerUnavailable(false);
 
         try {
-            const receivedTickets: Ticket[] = getEmployeeRole() == EmployeeRole.EMPLOYEE ?
-                await findAllTicketsByAccountIdAndStatusRequest(getAccountId(), status) :
-                await findAllTicketsByStatusRequest(status);
+            const receivedTickets: Ticket[] = getEmployeeRole() == EmployeeRole.FINANCE_MANAGER ?
+                await findAllTicketsByStatusRequest(status) :
+                await findAllTicketsByAccountIdAndStatusRequest(getAccountId(), status);
             setFetching(false);
             setTickets(receivedTickets);
         } catch (error: any) {

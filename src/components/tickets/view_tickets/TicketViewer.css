@@ -17,8 +17,11 @@ table > td, th {
     margin: 5px 15px;
 }
 
-table th:nth-child(5) {
+table th:nth-child(5), td:nth-child(5) {
     min-width: 200px;
+    max-width: 300px;
+    word-wrap: break-word;
+    word-break: break-all;
 }
 
 .notification {
