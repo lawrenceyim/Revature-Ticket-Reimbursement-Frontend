@@ -4,14 +4,14 @@ import { TicketStatus } from "../../../enums/TicketStatus";
 import { Ticket } from "../../../interfaces/Ticket";
 
 export async function approveTicketRequest(ticket: Ticket): Promise<void> {
-    const ticketHeaders: Headers = new Headers();
-    ticketHeaders.append("Content-Type", "application/json");
+    const requestHeaders: Headers = new Headers();
+    requestHeaders.append("Content-Type", "application/json");
 
     ticket.status = TicketStatus.APPROVED;
 
     const response = await fetch("http://localhost:8080/tickets/", {
         method: "PATCH",
-        headers: ticketHeaders,
+        headers: requestHeaders,
         body: JSON.stringify(ticket)
     });
 
@@ -25,14 +25,14 @@ export async function approveTicketRequest(ticket: Ticket): Promise<void> {
 }
 
 export async function denyTicketRequest(ticket: Ticket): Promise<void> {
-    const ticketHeaders: Headers = new Headers();
-    ticketHeaders.append("Content-Type", "application/json");
+    const requestHeaders: Headers = new Headers();
+    requestHeaders.append("Content-Type", "application/json");
 
     ticket.status = TicketStatus.DENIED;
 
     const response = await fetch("http://localhost:8080/tickets/", {
         method: "PATCH",
-        headers: ticketHeaders,
+        headers: requestHeaders,
         body: JSON.stringify(ticket)
     });
 

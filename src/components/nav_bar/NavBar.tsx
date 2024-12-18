@@ -1,7 +1,7 @@
 import './NavBar.css';
 import { useNavigate } from "react-router-dom";
 import { Account } from "../../interfaces/Account";
-import { capitalizeFirstLetterOnly } from '../../utils/Capitalization';
+import { capitalizeFirstLetterOnly } from '../../utils/StringFormat';
 import { LOGGED_IN, USER_ACCOUNT } from '../../consts/SessionStorageKeys';
 import { LOGIN_URL, MENU_URL } from '../../consts/PageUrls';
 import { isLoggedIn } from '../../utils/LoginValidation';

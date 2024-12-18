@@ -5,7 +5,7 @@ import { NavBar } from "../../nav_bar/NavBar";
 import { useEffect, useState } from "react";
 import { Ticket } from "../../../interfaces/Ticket";
 import { TicketStatusOption } from "../../../enums/TicketStatus";
-import { TicketTableRow } from "../ticket/TicketTableRow";
+import { TicketTableRow } from "../ticket_table_row/TicketTableRow";
 import { findAllTicketsByAccountIdAndStatusRequest, findAllTicketsByStatusRequest } from "./TickerViewerService";
 
 export function TicketViewer() {
@@ -61,15 +61,15 @@ export function TicketViewer() {
                         <select
                             defaultValue={TicketStatusOption.ALL}
                             onChange={e => setStatus(e.target.value as TicketStatusOption)}>
-                            {Object.values(TicketStatusOption).map(type => (
+                            {Object.values(TicketStatusOption).map(type => 
                                 <option key={type} value={type}>{type}</option>
-                            ))}
+                            )}
                         </select>
                     </th>
                     {getEmployeeRole() == EmployeeRole.FINANCE_MANAGER ? (<>
                         <th>Approve</th>
                         <th>Deny</th>
-                    </>) : (<></>)}
+                    </>) : <></>}
                 </tr>
             </thead>
             <tbody>
@@ -79,6 +79,6 @@ export function TicketViewer() {
             </tbody>
         </table>
 
-        {tickets.length == 0 ? (<Notification />) : (<></>)}
+        {tickets.length == 0 ? <Notification /> : <></>}
     </>);
 }
