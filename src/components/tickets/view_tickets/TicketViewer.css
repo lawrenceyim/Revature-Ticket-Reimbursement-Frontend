@@ -6,6 +6,7 @@ table {
     left: 0;
     text-align: left;
     padding: 10px;
+    border-spacing: 0px;
 }
 
 table > tr {
@@ -21,7 +22,7 @@ table th:nth-child(5), td:nth-child(5) {
     min-width: 200px;
     max-width: 300px;
     word-wrap: break-word;
-    word-break: break-all;
+    word-break: break-word;
 }
 
 .notification {

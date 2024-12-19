@@ -14,4 +14,6 @@ export interface ErrorMessageProp {
 export interface TicketRowProp {
     ticket: Ticket;
     callback: () => void;
+    backgroundColor: string;
+    index: number;
 }
