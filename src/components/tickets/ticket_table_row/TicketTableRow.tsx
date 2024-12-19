@@ -28,7 +28,7 @@ export function TicketTableRow(props: TicketRowProp) {
         }
     }
 
-    return (<tr key={props.ticket.ticketId} style={props.index % 2 == 0 ? { backgroundColor: props.backgroundColor } : {}}>
+    return (<tr key={props.index} style={props.index % 2 == 0 ? { backgroundColor: props.backgroundColor } : {}}>
         <td>{props.ticket.ticketId}</td>
         <td>{props.ticket.madeBy}</td>
         <td>{props.ticket.reimbursementType}</td>

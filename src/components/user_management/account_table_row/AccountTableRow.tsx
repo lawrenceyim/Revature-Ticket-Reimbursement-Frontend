@@ -16,7 +16,7 @@ export function AccountTableRow(props: AccountRowProp) {
         }
     }
 
-    return <tr key={props.account.accountId}>
+    return <tr key={props.index} style={props.index % 2 == 0 ? { backgroundColor: props.backgroundColor } : {}}>
         <td>{props.account.accountId}</td>
         <td>{props.account.firstName}</td>
         <td>{props.account.firstName}</td>

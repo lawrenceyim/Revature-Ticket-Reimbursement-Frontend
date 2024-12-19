@@ -1,3 +1,4 @@
+import "./UserManagement.css"
 import { useEffect, useState } from "react";
 import { Account } from "../../interfaces/Account";
 import { NavBar } from "../nav_bar/NavBar";
@@ -17,7 +18,7 @@ export function UserManagement() {
         try {
             const receivedAccounts: Account[] = await findAllAccountsRequest();
             setAccounts(receivedAccounts);
-        } catch (error: any){
+        } catch (error: any) {
 
         }
     }
@@ -44,9 +45,14 @@ export function UserManagement() {
                 </tr>
             </thead>
             <tbody>
-                {accounts.map(account => <AccountTableRow key={account.accountId} account={account} callback={changeAccountsShown} />)}
+                {accounts.map((account, index) => <AccountTableRow
+                    key={index}
+                    index={index}
+                    account={account} callback={changeAccountsShown}
+                    backgroundColor="grey" />
+                )}
             </tbody>
         </table>
-        <Notification/>
+        <Notification />
     </>;
 }

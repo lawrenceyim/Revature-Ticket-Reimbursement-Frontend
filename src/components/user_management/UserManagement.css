@@ -1,0 +1,15 @@
+table {
+    border-spacing: 0px;
+}
+
+tr {
+    height: 40px;
+}
+
+td {
+    padding: 0px 10px;
+}
+
+select {
+    height: 30px;
+}

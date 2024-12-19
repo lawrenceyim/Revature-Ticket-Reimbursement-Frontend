@@ -61,7 +61,7 @@ export function TicketViewer() {
                         <select
                             defaultValue={TicketStatusOption.ALL}
                             onChange={e => setStatus(e.target.value as TicketStatusOption)}>
-                            {Object.values(TicketStatusOption).map(type => 
+                            {Object.values(TicketStatusOption).map(type =>
                                 <option key={type} value={type}>{type}</option>
                             )}
                         </select>
@@ -74,7 +74,12 @@ export function TicketViewer() {
             </thead>
             <tbody>
                 {tickets.map((ticket, index) =>
-                    <TicketTableRow key={index} index={index} ticket={ticket} callback={changeTicketsShown} backgroundColor="grey" />
+                    <TicketTableRow
+                        key={index}
+                        index={index}
+                        ticket={ticket}
+                        callback={changeTicketsShown}
+                        backgroundColor="grey" />
                 )}
             </tbody>
         </table>
