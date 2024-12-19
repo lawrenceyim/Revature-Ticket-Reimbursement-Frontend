@@ -54,8 +54,8 @@ export function TicketViewer() {
                 <tr key="table-headers">
                     <th>Ticket ID</th>
                     <th>User ID</th>
-                    <th>Reimbursement Type</th>
-                    <th>Reimbursement Amount</th>
+                    <th>Type</th>
+                    <th>Amount</th>
                     <th>Description</th>
                     <th>
                         <select

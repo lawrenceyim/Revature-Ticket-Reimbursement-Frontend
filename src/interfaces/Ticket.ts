@@ -5,7 +5,7 @@ export interface Ticket {
     ticketId: number,
     madeBy: number,
     reimbursementType: ReimbursementType,
-    amount: number,
+    reimbursementAmount: number,
     description: string,
     status: TicketStatus
 }

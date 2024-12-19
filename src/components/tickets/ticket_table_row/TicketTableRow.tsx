@@ -32,7 +32,7 @@ export function TicketTableRow(props: TicketRowProp) {
         <td>{props.ticket.ticketId}</td>
         <td>{props.ticket.madeBy}</td>
         <td>{props.ticket.reimbursementType}</td>
-        <td>{props.ticket.amount}</td>
+        <td>{props.ticket.reimbursementAmount}</td>
         <td>{props.ticket.description}</td>
         <td>{props.ticket.status}</td>
         {getEmployeeRole() == EmployeeRole.FINANCE_MANAGER && props.ticket.status == TicketStatus.PENDING ? <>
