@@ -1,8 +1,9 @@
+import "./RegistrationForm.css";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MAX_FIRST_NAME_LENGTH, MAX_LAST_NAME_LENGTH, MAX_PASSWORD_LENGTH, MAX_USERNAME_LENGTH, MIN_PASSWORD_LENGTH, MIN_USERNAME_LENGTH } from "../../consts/ApiConsts";
 import { NavBar } from "../nav_bar/NavBar";
-import { MENU_URL } from "../../consts/PageUrls";
+import { MENU_URL, LOGIN_URL } from '../../consts/PageUrls';
 import { sendRegistrationRequest } from "./RegistrationService";
 import { isUsernameValid, isPasswordValid, isFirstNameValid, isLastNameValid } from "../../utils/Validation";
 import { ErrorMessage } from "../error_message/ErrorMessage";
@@ -62,10 +63,15 @@ export function RegistrationForm() {
         }
     }
 
+    function returnToLogin(event: any) {
+        event.preventDefault();
+        navigate(LOGIN_URL);
+    }
+
     return (<>
         <NavBar />
         <form onSubmit={register}>
-            <fieldset className="login-fieldset">
+            <fieldset className="registration-fieldset">
                 <legend>Employee Registration</legend>
 
                 <label htmlFor="username">Username</label>
@@ -114,6 +120,7 @@ export function RegistrationForm() {
 
                 {<ErrorMessage enabled={errorMessageEnabled} message={errorMessageRef.current} />}
                 <button type="submit" disabled={!formIsValid || waitingForResponse}>Register</button>
+                <button onClick={returnToLogin}>Return to Login</button>
             </fieldset>
         </form>
     </>);

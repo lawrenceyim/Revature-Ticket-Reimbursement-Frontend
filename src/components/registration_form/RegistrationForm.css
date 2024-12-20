@@ -1,0 +1,16 @@
+.registration-fieldset {
+    display: flex;
+    flex-direction: column;
+}
+
+.registration-fieldset input {
+    margin-bottom: 10px;
+}
+
+.registration-fieldset button {
+    margin: 5px 0px;
+}
+
+.registration-link {
+    width: 100%;
+}
