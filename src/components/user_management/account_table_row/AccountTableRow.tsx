@@ -26,7 +26,9 @@ export function AccountTableRow(props: AccountRowProp) {
                 <select
                     defaultValue={props.account.employeeRole}
                     onChange={e => changeEmployeeRole(e.target.value as EmployeeRole)}>
-                    {Object.values(EmployeeRole).map(role =>
+                    {Object.values(EmployeeRole).filter(role => {
+                        return role != EmployeeRole.USER_STORY_MANAGER;
+                    }).map(role =>
                         <option key={role} value={role}>{replaceUnderscoreWithSpace(role)}</option>
                     )}
                 </select>
